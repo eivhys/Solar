@@ -1,0 +1,47 @@
+{
+  "name": "solar",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "antd": "^3.16.3",
+    "firebase": "^5.10.0",
+    "firebaseui": "^3.5.2",
+    "get-youtube-id": "^1.0.1",
+    "grommet": "^2.6.6",
+    "grommet-icons": "^4.2.0",
+    "history": "^4.9.0",
+    "moment": "^2.24.0",
+    "polished": "^3.2.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-player": "^1.11.0",
+    "react-redux": "^7.0.2",
+    "react-redux-firebase": "^3.0.0-alpha.11",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "2.1.8",
+    "redux": "^4.0.1",
+    "redux-firestore": "^0.7.3",
+    "redux-logger": "^3.0.6",
+    "redux-replicate": "^3.0.9",
+    "redux-thunk": "^2.3.0",
+    "request": "^2.88.0",
+    "styled-components": "^4.2.0",
+    "youtube-regex": "^1.0.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

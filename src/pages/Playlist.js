@@ -42,8 +42,10 @@ class Playlist extends React.Component {
                         added: Date()
                     }
                     const playlist = this.props.playlists[findWithAttr(this.props.playlists, "id", this.props.match.params.id)]
-                    playlist.tracks.push(track)
-                    firebase.firestore().collection('playlists').doc(this.props.match.params.id).update(playlist)
+                    firebase.firestore().collection('playlists').doc(this.props.match.params.id).update({
+                        ...playlist,
+                        tracks: playlist.tracks.concat(track)
+                    })
                     this.setState({ youtubeLink: "" })
                 } else {
                     const err = JSON.parse(body)

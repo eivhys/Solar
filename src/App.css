@@ -1,13 +1,41 @@
 body {
   height: 100%;
-  width: 100%
+  width: 100%;
+  min-height: 100%;
+  min-width: 100%;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+.App {
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+  min-width: 100%;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+.root {
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+  min-width: 100%;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
 }
 
 .sidebarItem {
   padding-bottom: 1px;
   padding-top: 1px;
-  margin-left: 15px;
+  padding-left: 15px;
   transition: all 150ms ease;
+  left: 0px;
 }
 
 .sidebarItem>h3 {
@@ -16,7 +44,7 @@ body {
 }
 
 .sidebarItem:hover {
-  background-color: #F2F2F2;
+  background-color: #444;
   transition: all 150ms ease;
 }
 

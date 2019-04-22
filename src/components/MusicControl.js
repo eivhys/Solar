@@ -1,12 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { Button, RangeInput, DropButton, Box, Form, FormField } from 'grommet'
-import { Play, ChapterNext, ChapterPrevious, PowerReset, Network, Pause, VolumeMute, Volume, Update, Add } from 'grommet-icons'
+import { Button, RangeInput, DropButton, Box, Form, FormField, Heading } from 'grommet'
+import { Play, ChapterNext, ChapterPrevious, PowerReset, Network, Pause, VolumeMute, Volume, Add } from 'grommet-icons'
 import { progress, togglePlay, muteVolume, changeVolume, shuffle, prevTrack, nextTrack, repeat } from '../store/actions/musicActions';
 import ReactPlayer from 'react-player'
 import { firestoreConnect } from 'react-redux-firebase/'
 import { isLoaded, isEmpty } from 'react-redux-firebase/lib/helpers'
+import firebase from 'firebase'
+import history from './helpers/history';
 
 class Playlist extends React.Component {
 
@@ -16,16 +18,16 @@ class Playlist extends React.Component {
         this.player = player
     }
 
-    toMMSS = (sec_num) => {
-        console.log(sec_num)
-        sec_num = parseInt(this, 10); // don't forget the second param
-        const hours = Math.floor(sec_num / 3600);
-        let minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-        let seconds = sec_num - (hours * 3600) - (minutes * 60);
-
-        if (minutes < 10) { minutes = "0" + minutes; }
-        if (seconds < 10) { seconds = "0" + seconds; }
-        return minutes + ':' + seconds;
+    addPlaylist = (e) => {
+        const playlist = {
+            name: e.value.name,
+            description: e.value.description,
+            tracks: [],
+            userId: firebase.auth().currentUser.uid
+        }
+        const newPlaylist = firebase.firestore().collection("playlists").doc()
+        newPlaylist.set(playlist)
+        history.push('/playlists/' + newPlaylist.id)
     }
 
     render() {
@@ -36,8 +38,10 @@ class Playlist extends React.Component {
             dropAlign={{ bottom: 'bottom', left: 'left' }}
             dropContent={
                 <Box elevation="xlarge" alignSelf="center" pad="large" width="medium" background="light-1">
-                    <Form onSubmit={this.addTrack}>
-                        <FormField name="name" label="New playlist" onChange={e => this.setState({ youtubeLink: e.target.value })} />
+                    <Heading style={{ color: "#333" }}>New Playlist</Heading>
+                    <Form onSubmit={this.addPlaylist}>
+                        <FormField name="name" label="Name" required={true} />
+                        <FormField name="description" label="Description" />
                         <Button type="submit" color="accent-1" label="Create" />
                     </Form>
                 </Box>
@@ -102,7 +106,7 @@ class Playlist extends React.Component {
         }
 
         let activePlaylist = playlists.find(p => {
-            return p.id === music.playlistId
+            return p.id === music.playlist.id
         })
 
         if (activePlaylist === undefined) {
@@ -110,7 +114,7 @@ class Playlist extends React.Component {
         }
 
         const tracks = activePlaylist.tracks
-        const currentTrack = music.currentTrack
+        const currentTrack = music.trackNum
         const disabled = (tracks === undefined || tracks[currentTrack] === undefined) ? true : false
         const trackUndef = tracks === undefined || tracks[currentTrack] === undefined
 
@@ -139,7 +143,7 @@ class Playlist extends React.Component {
                     />
                     <Button style={{ marginLeft: 10, marginTop: 16 }}
                         icon={<ChapterNext />}
-                        disabled={disabled || (currentTrack === tracks.length - 1 && (!music.repeat && !music.shuffle))}
+                        disabled={disabled || (currentTrack === tracks.length - 1 && (!music.repeat && !music.shuffle)) && music.queue.length === 0}
                         onClick={(e) => {
                             dispatch(nextTrack())
                             this.player.seekTo(0)
@@ -168,7 +172,7 @@ class Playlist extends React.Component {
                         <div className="title">
                             <div className="titleContent">
                                 <h4 style={{ marginTop: 28, marginLeft: 24 }}>
-                                    {trackUndef ? "" : tracks[currentTrack].title}</h4>
+                                    {trackUndef ? "" : music.currentTrack.title}</h4>
                             </div>
                         </div>
                     </div>
@@ -177,7 +181,7 @@ class Playlist extends React.Component {
                     style={{ width: '100%', marginTop: trackUndef ? 11.94 : 0 }}
                     value={music.timePlayed}
                     min={0}
-                    max={trackUndef ? 1 : tracks[currentTrack].length}
+                    max={trackUndef ? 1 : music.currentTrack.length}
                     step={1}
                     onChange={e => {
                         dispatch(progress(e.target.value))
@@ -196,7 +200,7 @@ class Playlist extends React.Component {
                     ref={this.ref}
                     height={0}
                     width={0}
-                    url={`https://www.youtube.com/watch?v=${!trackUndef ? tracks[currentTrack].ytId : ""}`}
+                    url={`https://www.youtube.com/watch?v=${!trackUndef ? music.currentTrack.ytId : ""}`}
                     playing={music.playing}
                     onProgress={(e) => dispatch(progress(e.playedSeconds))}
                     onEnded={() => {
@@ -218,7 +222,17 @@ class Playlist extends React.Component {
 }
 
 export default compose(
-    firestoreConnect(() => ['playlists']), // or { collection: 'todos' }
+    firestoreConnect(() => {
+        if (!firebase.auth().currentUser.uid) return []
+        return [
+            {
+                collection: 'playlists',
+                where: [
+                    ['userId', '==', firebase.auth().currentUser.uid]
+                ]
+            }
+        ]
+    }), // or { collection: 'todos' }
     connect((state, props) => ({
         playlists: state.firestore.ordered.playlists,
         dispatch: state.dispatch,

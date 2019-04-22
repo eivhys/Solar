@@ -2,11 +2,10 @@ const initState = {
     playing: false,
     volume: 100,
     muted: false,
-    playlistId: "",
-    playlistLength: 0,
-    playlist: [],
+    playlist: {},
     queue: [],
-    currentTrack: 0,
+    currentTrack: {},
+    trackNum: 0,
     timePlayed: 0,
     shuffle: false,
     repeat: false
@@ -38,11 +37,13 @@ const components = (state = initState, action) => {
                 ...state,
                 playing: !state.playing
             }
-        case 'PLAT_FIRST':
+        case 'FIRST_PLAY':
             return {
                 ...state,
                 playing: true,
-                currentTrack: 0,
+                currentTrack: action.playlist.tracks[0],
+                timePlayed: 0,
+                playlist: action.playlist
             }
         case 'SHUFFLE':
             return {
@@ -72,32 +73,50 @@ const components = (state = initState, action) => {
         case 'NEW_TRACK':
             return {
                 ...state,
-                currentTrack: action.trackNum,
+                trackNum: action.trackNum,
+                currentTrack: action.playlist.tracks[action.trackNum],
                 playing: true,
                 timePlayed: 0,
-                playlistId: action.playlistId,
-                playlistLength: action.playlistLength,
-                queue: state.queue.pop()
+                playlist: action.playlist,
             }
         case 'NEXT_TRACK':
+            if (state.queue.length !== 0) {
+                return {
+                    ...state,
+                    currentTrack: state.queue[0],
+                    timePlayed: 0,
+                    playing: true,
+                    queue: state.queue.splice(0, 0)
+                }
+            }
+            const next = state.shuffle ? (Math.floor(Math.random() * state.playlist.tracks.length)) : state.playlist.tracks.length - 1 > state.trackNum ? state.trackNum + 1 : 0
+            const track = state.playlist.tracks[next]
+            console.log(next)
             return {
                 ...state,
-                currentTrack: state.shuffle ? (Math.floor(Math.random() * state.playlistLength)) : state.playlistLength - 1 > state.currentTrack ? state.currentTrack + 1 : 0,
+                trackNum: next,
+                currentTrack: track,
                 timePlayed: 0,
                 playing: true,
-                queue: state.queue.pop()
             }
         case 'PREV_TRACK':
+            const last = state.trackNum > 0 ? state.trackNum - 1 : 0
             return {
                 ...state,
-                currentTrack: state.currentTrack > 0 ? state.currentTrack - 1 : 0,
+                currentTrack: state.playing.tracks[last],
+                trackNum: last,
                 timePlayed: 0,
                 playing: true
             }
         case 'SET_PLAYLIST_ID':
             return {
                 ...state,
-                playlistId: action.playlistId
+                playlist: action.playlist
+            }
+        case 'QUEUE_TRACK':
+            return {
+                ...state,
+                queue: [...state.queue, action.track]
             }
 
         default:

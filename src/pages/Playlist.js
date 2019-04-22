@@ -4,13 +4,14 @@ import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase/'
 import Tracks from '../components/Playlist/Tracks'
 import firebase from 'firebase'
-import { Button, DropButton, Box, Form, FormField, Heading, Menu } from 'grommet'
+import { Button, DropButton, Box, Form, FormField, Heading, Menu, Text } from 'grommet'
 import { Play, Add, LinkPrevious, Home, Pause } from 'grommet-icons'
 import moment from 'moment'
 import Request from 'request'
 import { findWithAttr } from '../store/reducers/musicReducer'
 import { isLoaded, isEmpty } from 'react-redux-firebase/lib/helpers'
-import { togglePlay, setPlaylist } from '../store/actions/musicActions';
+import { firstPlay, setPlaylist, pause, play } from '../store/actions/musicActions';
+import history from '../components/helpers/history';
 const youtubeRegex = require('youtube-regex')
 const getYouTubeID = require('get-youtube-id')
 
@@ -18,6 +19,13 @@ class Playlist extends React.Component {
 
     state = {
         youtubeLink: ""
+    }
+
+    removePlaylist = () => {
+        firebase.firestore().collection('playlists').doc(this.props.match.params.id).delete()
+            .then(
+                history.push('/')
+            )
     }
 
     addTrack = (e) => {
@@ -35,8 +43,7 @@ class Playlist extends React.Component {
                     }
                     const playlist = this.props.playlists[findWithAttr(this.props.playlists, "id", this.props.match.params.id)]
                     playlist.tracks.push(track)
-
-                    firebase.firestore().collection('playlists').doc(this.props.match.params.id).set(playlist)
+                    firebase.firestore().collection('playlists').doc(this.props.match.params.id).update(playlist)
                     this.setState({ youtubeLink: "" })
                 } else {
                     const err = JSON.parse(body)
@@ -91,41 +98,47 @@ class Playlist extends React.Component {
 
         return (
             <div style={{ height: "100%", width: "100%" }}>
-                <div style={{ width: "100%", display: "-webkit-box" }}>
-                    <Heading style={{ marginLeft: 20 }}>{playlist.name}</Heading>
-                    <Button style={{ marginLeft: 10, marginTop: 44 }}
-                        icon={music.playing ? <Pause /> : <Play />}
+                <div style={{ paddingLeft: 24, width: "100%", display: "-webkit-box" }}>
+                    <Heading>{playlist.name}</Heading>
+                    <Button style={{ marginLeft: 12, marginTop: 44 }}
+                        icon={<Play />}
                         label={music.playing ? "Pause" : "Play"}
                         onClick={() => {
-                            dispatch(setPlaylist(playlist.id))
-                            dispatch(togglePlay())
+                            if (music.playlist.tracks === undefined || music.playlist.id !== match.params.id) {
+                                dispatch(setPlaylist(playlist.id))
+                                dispatch(firstPlay(playlist))
+                            }
+                            else if (!music.playing) {
+                                dispatch(play())
+                            }
                         }}
                     />
-                    <DropButton style={{ marginLeft: 10, marginTop: 44 }}
+                    <DropButton style={{ marginLeft: 12, marginTop: 44 }}
                         icon={<Add />}
                         label="Add track"
                         dropAlign={{ top: 'bottom', right: 'right' }}
                         dropContent={
-                            <Box alignSelf="center" pad="large" width="medium" background="dark-2">
+                            <Box alignSelf="center" pad="large" width="medium" background="light-1">
                                 <Form onSubmit={this.addTrack}>
-                                    <FormField name="name" label="New track" onChange={e => this.setState({ youtubeLink: e.target.value })} />
-                                    <Button disabled={!youtubeRegex().test(this.state.youtubeLink)} type="submit" primary label="Add" />
+                                    <Heading>New track</Heading>
+                                    <FormField name="name" placeholder="Youtube link" onChange={e => this.setState({ youtubeLink: e.target.value })} />
+                                    <Button disabled={!youtubeRegex().test(this.state.youtubeLink)} type="submit" color="accent-1" label="Add" />
                                 </Form>
                             </Box>
                         }
                     />
                     <Menu
-                        style={{ float: 'right' }}
+                        style={{ float: 'right', marginTop: 44 }}
                         label="More"
                         dropAlign={{ top: 'bottom', right: 'right' }}
                         items={[
-                            { label: 'Share track', onClick: () => { } },
-                            { label: 'Download', onClick: () => { } },
-                            { label: 'Remove from playlist', onClick: () => { } },
+                            { label: 'Share Playlist', onClick: () => { }, disabled: true },
+                            { label: 'Remove', onClick: () => this.removePlaylist() },
                         ]}
                     />
                 </div>
-                <h3 style={{ marginLeft: 20 }}>{playlist.description}</h3>
+                <Text style={{ paddingLeft: 24, paddingBottom: 16, display: 'table-cell', }} color="accent-1">{playlist.description}</Text>
+                <div style={{ width: '100%', borderBottom: '1px solid #555' }} />
                 <Tracks playlist={playlist} playlistId={match.params.id} />
             </div>
         )
@@ -134,7 +147,17 @@ class Playlist extends React.Component {
 }
 
 export default compose(
-    firestoreConnect(() => ['playlists']), // or { collection: 'todos' }
+    firestoreConnect(() => {
+        if (!firebase.auth().currentUser.uid) return []
+        return [
+            {
+                collection: 'playlists',
+                where: [
+                    ['userId', '==', firebase.auth().currentUser.uid]
+                ]
+            }
+        ]
+    }), // or { collection: 'todos' }
     connect((state, props) => ({
         playlists: state.firestore.ordered.playlists,
         music: state.music,

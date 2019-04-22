@@ -47,11 +47,11 @@ export const prevTrack = (tracks) => ({
     tracks
 })
 
-export const newTrack = (trackNum, playlistId, playlistLength) => ({
+export const newTrack = (trackNum, track, playlist) => ({
     type: 'NEW_TRACK',
     trackNum,
-    playlistId,
-    playlistLength
+    currentTrack: track,
+    playlist
 
 })
 
@@ -74,7 +74,17 @@ export const starTrack = (track) => ({
     track
 })
 
-export const setPlaylist = (playlistId) => ({
+export const setPlaylist = (playlist) => ({
     type: 'SET_PLAYLIST_ID',
-    playlistId
+    playlist
+})
+
+export const queueTrack = (track) => ({
+    type: 'QUEUE_TRACK',
+    track
+})
+
+export const firstPlay = (playlist) => ({
+    type: 'FIRST_PLAY',
+    playlist
 })

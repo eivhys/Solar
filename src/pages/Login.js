@@ -1,16 +1,23 @@
-import React, { Component } from 'react';
-import { Box } from 'grommet'
+import React, { Component } from 'react'
+import { StyledFirebaseAuth } from 'react-firebaseui'
+import firebase from 'firebase'
+
+// Configure FirebaseUI.
+const uiConfig = {
+    // Popup signin flow rather than redirect flow.
+    signInFlow: 'redirect',
+    signInSuccessUrl: '/',
+    signInOptions: [
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID
+    ]
+};
 
 class Login extends Component {
     render() {
         return (
-            <div>
-                <Box border={{ color: 'none', size: 'medium' }} pad='medium'>
-                    Morn
-                </Box>
-            </div>
+            <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
         );
     }
 }
 
-export default Login;
+export default Login

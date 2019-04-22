@@ -5,6 +5,7 @@ import { firestoreConnect } from 'react-redux-firebase/'
 import { isLoaded, isEmpty } from 'react-redux-firebase/lib/helpers'
 import { Update, Add } from 'grommet-icons'
 import { Box, Button } from 'grommet'
+import firebase from 'firebase'
 import history from './helpers/history'
 
 function Playlists({ playlists, dispatch }) {
@@ -20,11 +21,11 @@ function Playlists({ playlists, dispatch }) {
 
     return (
         <div style={{ height: "100%" }}>
-            <div style={{ height: "100%", float: "left", }}>
+            <div style={{ height: "100%", width: '100%', float: "left", }}>
                 {
                     Object.keys(playlists).map(
                         (key, id) => (
-                            <div className="sidebarItem" key={playlists[key].id} onClick={() => {
+                            <div className="sidebarItem track" key={playlists[key].id} onClick={() => {
                                 history.push(`/playlists/${playlists[key].id}`)
                             }
                             }>
@@ -39,7 +40,17 @@ function Playlists({ playlists, dispatch }) {
 }
 
 export default compose(
-    firestoreConnect(() => ['playlists']), // or { collection: 'todos' }
+    firestoreConnect(() => {
+        if (!firebase.auth().currentUser.uid) return []
+        return [
+            {
+                collection: 'playlists',
+                where: [
+                    ['userId', '==', firebase.auth().currentUser.uid]
+                ]
+            }
+        ]
+    }), // or { collection: 'todos' }
     connect((state, props) => ({
         playlists: state.firestore.ordered.playlists,
         dispatch: state.dispatch

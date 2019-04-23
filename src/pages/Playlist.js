@@ -5,12 +5,12 @@ import { firestoreConnect } from 'react-redux-firebase/'
 import Tracks from '../components/Playlist/Tracks'
 import firebase from 'firebase'
 import { Button, DropButton, Box, Form, FormField, Heading, Menu, Text } from 'grommet'
-import { Play, Add, LinkPrevious, Home, Pause } from 'grommet-icons'
+import { Play, Add, LinkPrevious, Home } from 'grommet-icons'
 import moment from 'moment'
 import Request from 'request'
 import { findWithAttr } from '../store/reducers/musicReducer'
 import { isLoaded, isEmpty } from 'react-redux-firebase/lib/helpers'
-import { firstPlay, setPlaylist, pause, play } from '../store/actions/musicActions';
+import { firstPlay, setPlaylist, play } from '../store/actions/musicActions';
 import history from '../components/helpers/history';
 const youtubeRegex = require('youtube-regex')
 const getYouTubeID = require('get-youtube-id')
@@ -37,7 +37,7 @@ class Playlist extends React.Component {
                         title: ytInfo.snippet.title,
                         length: moment.duration(ytInfo.contentDetails.duration).asMilliseconds() / 1000,
                         ytId: ytInfo.id,
-                        starred: false,
+                        favourite: false,
                         artist: ytInfo.snippet.channelTitle,
                         added: Date()
                     }

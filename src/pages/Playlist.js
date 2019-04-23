@@ -104,15 +104,10 @@ class Playlist extends React.Component {
                     <Heading>{playlist.name}</Heading>
                     <Button style={{ marginLeft: 12, marginTop: 44 }}
                         icon={<Play />}
-                        label={music.playing ? "Pause" : "Play"}
+                        label={"Play"}
                         onClick={() => {
-                            if (music.playlist.tracks === undefined || music.playlist.id !== match.params.id) {
-                                dispatch(setPlaylist(playlist.id))
-                                dispatch(firstPlay(playlist))
-                            }
-                            else if (!music.playing) {
-                                dispatch(play())
-                            }
+                            dispatch(setPlaylist(playlist.id))
+                            dispatch(firstPlay(playlist))
                         }}
                     />
                     <DropButton style={{ marginLeft: 12, marginTop: 44 }}

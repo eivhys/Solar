@@ -3,39 +3,48 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase/'
 import { isLoaded, isEmpty } from 'react-redux-firebase/lib/helpers'
-import { Update, Add } from 'grommet-icons'
-import { Button } from 'grommet'
+import { Update, Add, Linkedin, LinkDown } from 'grommet-icons'
+import { Button, Box } from 'grommet'
 import firebase from 'firebase'
 import history from './helpers/history'
 
 function Playlists({ playlists, dispatch }) {
+
+    const menuItems = ["Search", "Home", "Trending", "Favourites"]
+
+    const menuButtons = <div style={{ borderBottom: '1px solid #444' }}>{Object.keys(menuItems).map(
+        (key, id) => (
+            <div className="sidebarItem track" key={menuItems[key]} onClick={() => {
+                history.push(`/${menuItems[key].toLowerCase()}`)
+            }
+            }>
+                <h3 className="titleContent">{menuItems[key]}</h3>
+            </div>
+        )
+    )}</div>
+
     if (!isLoaded(playlists)) {
-        return <Update color="white" size="medium" className="spin" />
+        return <div>
+            {menuButtons}
+            <Update color="white" size="medium" className="spin" />
+        </div>
     }
     if (isEmpty(playlists)) {
         return <div>
-            <h3>No playlists found..</h3>
-            <Button icon={<Add />} alignSelf="center" label="Create playlist" />
-        </div>
+            {menuButtons}
+            <div style={{ marginLeft: 16, height: '100%' }} >
+                <h3>No playlists found</h3>
+                <p>Create one with the <b>+</b> button</p>
+                <LinkDown style={{ bottom: 150, position: "absolute" }} color="accent-1" />
+            </div>
+        </div >
     }
 
-    const menuItems = ["Search", "Home", "Trending", "Favourites"]
 
     return (
         <div style={{ height: "100%" }}>
             <div style={{ height: "100%", width: '100%', float: "left", }}>
-                {
-                    Object.keys(menuItems).map(
-                        (key, id) => (
-                            <div className="sidebarItem track" key={menuItems[key]} onClick={() => {
-                                history.push(`/${menuItems[key].toLowerCase()}`)
-                            }
-                            }>
-                                <h3 className="titleContent">{menuItems[key]}</h3>
-                            </div>
-                        )
-                    )
-                }
+                {menuButtons}
                 {
                     Object.keys(playlists).map(
                         (key, id) => (

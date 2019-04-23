@@ -21,7 +21,7 @@ class Playlist extends React.Component {
     addPlaylist = (e) => {
         const playlist = {
             name: e.value.name,
-            description: e.value.description,
+            description: e.value.description === undefined ? "" : e.value.description,
             tracks: [],
             userId: firebase.auth().currentUser.uid
         }

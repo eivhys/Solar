@@ -204,8 +204,8 @@ class Playlist extends React.Component {
                     playing={music.playing}
                     onProgress={(e) => dispatch(progress(e.playedSeconds))}
                     onEnded={() => {
-                        dispatch(nextTrack())
                         this.player.seekTo(0)
+                        dispatch(nextTrack())
                     }
                     }
                     onBuffer={() => this.setState({ buffering: true })}

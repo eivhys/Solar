@@ -1,7 +1,7 @@
 import React from 'react'
 import { Icon } from 'antd'
 import { Menu, Text } from 'grommet'
-import { newTrack, queueTrack, setPlaylist, starTrack, } from '../../store/actions/musicActions';
+import { newTrack, queueTrack, setPlaylist, } from '../../store/actions/musicActions';
 import { connect } from 'react-redux'
 import firebase from 'firebase'
 import { findWithAttr } from '../../store/reducers/musicReducer';
@@ -24,7 +24,7 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
     const tracks = playlist.tracks
 
     if (tracks === undefined || tracks.length === 0) {
-        return <Text style={{ marginLeft: 24 }}><br />No tracks in playlist...</Text >
+        return <Text style={{ marginLeft: 24, display: '-webkit-box' }}><br />No tracks in playlist...</Text >
     }
 
     return (

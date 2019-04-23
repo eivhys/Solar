@@ -38,7 +38,7 @@ function Layout(props) {
                         {props.children}
                     </Box>
                 </Box>
-                <Box tag="footer" pad="small" background="dark-1">
+                <Box tag="footer" pad="small" background="dark-1" style={{ borderTop: '1px solid #444' }}>
                     <MusicControl />
                 </Box>
             </Grid>

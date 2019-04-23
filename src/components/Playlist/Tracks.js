@@ -5,13 +5,26 @@ import { newTrack, queueTrack, setPlaylist, } from '../../store/actions/musicAct
 import { connect } from 'react-redux'
 import firebase from 'firebase'
 import { findWithAttr } from '../../store/reducers/musicReducer';
+import { compose } from 'redux'
+import { firestoreConnect } from 'react-redux-firebase/'
 
 function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
+
+    const addFavourite = (track, playlist) => {
+        const playlistRef = firebase.firestore().collection('playlists').doc(playlist.id)
+        const key = findWithAttr(playlist.tracks, "ytId", track.ytId)
+        const newTracks = playlist.tracks
+        newTracks[key].favourite = !tracks[key].favourite
+        playlistRef.set({
+            ...playlist,
+            tracks: newTracks
+        })
+    }
 
     const tracks = playlist.tracks
 
     if (tracks === undefined || tracks.length === 0) {
-        return <Text style={{ marginLeft: 24 }}><br />No tracks in playlist...</Text >
+        return <Text style={{ marginLeft: 24, display: '-webkit-box' }}><br />No tracks in playlist...</Text >
     }
 
     return (
@@ -24,8 +37,8 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
                         }
                         } >
                             <div style={{ float: "left", display: "flex" }}>
-                                {stars && <Icon type="star" style={{ marginTop: 25, marginLeft: 10 }} theme={tracks[key].starred ? "filled" : "outlined"} />}
-                                <h3 style={{ marginLeft: 15 }}>{tracks[key].title}</h3>
+                                {stars && <Icon type="star" style={{ paddingTop: 25, paddingLeft: 10, paddingRight: 15 }} theme={tracks[key].favourite ? "filled" : "outlined"} onClick={() => addFavourite(tracks[key], playlist)} />}
+                                <h3>{tracks[key].title}</h3>
                             </div>
                             <div style={{ float: "right", marginTop: 12, marginRight: 24 }}>
                                 <Menu
@@ -56,9 +69,22 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
     )
 }
 
-export default
+export default compose(
+    firestoreConnect(() => {
+        if (!firebase.auth().currentUser.uid) return []
+        return [
+            {
+                collection: 'playlists',
+                where: [
+                    ['userId', '==', firebase.auth().currentUser.uid]
+                ]
+            }
+        ]
+    }), // or { collection: 'todos' }
     connect((state, props) => ({
-        dispatch: state.dispatch,
-        music: state.music
+        playlists: state.firestore.ordered.playlists,
+        music: state.music,
+        dispatch: state.dispatch
     }
-    ))(Tracks)
+    ))
+)(Tracks)

@@ -4,13 +4,13 @@ import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase/'
 import { isLoaded, isEmpty } from 'react-redux-firebase/lib/helpers'
 import { Update, Add } from 'grommet-icons'
-import { Box, Button } from 'grommet'
+import { Button } from 'grommet'
 import firebase from 'firebase'
 import history from './helpers/history'
 
 function Playlists({ playlists, dispatch }) {
     if (!isLoaded(playlists)) {
-        return <Box border={{ color: 'none', size: 'full' }} pad='medium'><Update color="plain" className="spin" size="medium" /></Box>
+        return <Update color="white" size="medium" className="spin" />
     }
     if (isEmpty(playlists)) {
         return <div>
@@ -19,9 +19,23 @@ function Playlists({ playlists, dispatch }) {
         </div>
     }
 
+    const menuItems = ["Search", "Home", "Trending", "Favourites"]
+
     return (
         <div style={{ height: "100%" }}>
             <div style={{ height: "100%", width: '100%', float: "left", }}>
+                {
+                    Object.keys(menuItems).map(
+                        (key, id) => (
+                            <div className="sidebarItem track" key={menuItems[key]} onClick={() => {
+                                history.push(`/${menuItems[key].toLowerCase()}`)
+                            }
+                            }>
+                                <h3 className="titleContent">{menuItems[key]}</h3>
+                            </div>
+                        )
+                    )
+                }
                 {
                     Object.keys(playlists).map(
                         (key, id) => (

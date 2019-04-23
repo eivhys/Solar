@@ -98,7 +98,7 @@ class Playlist extends React.Component {
 
         return (
             <div style={{ height: "100%", width: "100%" }}>
-                <div style={{ paddingLeft: 24, width: "100%", display: "-webkit-box" }}>
+                <div style={{ paddingLeft: 24, width: `calc(100% - 24px)`, display: "-webkit-box" }}>
                     <Heading>{playlist.name}</Heading>
                     <Button style={{ marginLeft: 12, marginTop: 44 }}
                         icon={<Play />}

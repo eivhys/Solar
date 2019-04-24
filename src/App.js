@@ -10,6 +10,7 @@ import './components/helpers/Protototypes'
 import { Box, Heading } from 'grommet'
 import Login from './pages/Login';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import Favourites from './pages/Favourites';
 
 class App extends Component {
 
@@ -52,7 +53,7 @@ class App extends Component {
             background="dark-1"
             alignContent="center"
             style={{ minHeight: '100vh' }}
-            >
+          >
             <Box
               alignSelf="center"
               border={{ color: 'accent-1', size: 'small' }}
@@ -73,6 +74,7 @@ class App extends Component {
           <Layout>
             <Switch>
               <Route exact={true} path="/" component={Dashboard} />
+              <Route exact={true} path="/favourites" component={Favourites} />
               <Route exact={true} path="/playlists/:id" component={Playlist} />
               <Route exact={true} path="/signin" component={Login} />
             </Switch>

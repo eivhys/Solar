@@ -13,9 +13,10 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
     const addFavourite = (track, playlist) => {
         const playlistRef = firebase.firestore().collection('playlists').doc(playlist.id)
         const key = findWithAttr(playlist.tracks, "ytId", track.ytId)
-        const newTracks = playlist.tracks
+        const newTracks = [...playlist.tracks]
+        Object.assign({}, playlist, { tracks: newTracks })
         newTracks[key].favourite = !tracks[key].favourite
-        playlistRef.set({
+        playlistRef.update({
             ...playlist,
             tracks: newTracks
         })
@@ -41,7 +42,7 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
                                 <h3>{tracks[key].title}</h3>
                             </div>
                             <div style={{ float: "right", marginTop: 12, marginRight: 24 }}>
-                                <Menu
+                                {options && <Menu
                                     label="More"
                                     dropAlign={{ top: 'bottom', right: 'right' }}
                                     items={[
@@ -59,7 +60,7 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
                                             }
                                         },
                                     ]}
-                                />
+                                />}
                             </div>
                         </div>
                     )

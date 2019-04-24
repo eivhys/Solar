@@ -2,13 +2,33 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase/'
-import Tracks from '../components/Playlist/Tracks'
+import FavouriteTracks from '../components/Playlist/FavouriteTracks'
 import firebase from 'firebase'
 import { Button, Box, Heading } from 'grommet'
-import { LinkPrevious, Home } from 'grommet-icons'
+import { LinkPrevious, Home, Play } from 'grommet-icons'
 import { isLoaded, isEmpty } from 'react-redux-firebase/lib/helpers'
+import { setPlaylist, firstPlay } from "../store/actions/musicActions";
 
 class Playlist extends React.Component {
+
+    getFavourites() {
+        const favourites = {
+            id: 'favourites',
+            name: 'Favourites',
+            description: 'A collection of your favourite songs!',
+            tracks: []
+        }
+        for (let p = 0; p < this.props.playlists.length; p++) {
+            const playlist = this.props.playlists[p];
+            for (let t = 0; t < playlist.tracks.length; t++) {
+                const track = playlist.tracks[t];
+                if (track.favourite) {
+                    favourites.tracks.push({ ...track, origin: playlist.id })
+                }
+            }
+        }
+        return favourites
+    }
 
     render() {
 
@@ -23,6 +43,7 @@ class Playlist extends React.Component {
                     Oof.. Couldn't find your content
                 </Heading></div>
         }
+
 
         const noPlaylists = (
             <Box>
@@ -46,23 +67,22 @@ class Playlist extends React.Component {
         if (playlists === undefined) {
             return noPlaylists
         }
-
-        const favourites = []
-        for (const playlist of playlists) {
-            for (const track of playlist.tracks) {
-                if (track.favourite) {
-                    favourites.concat(track)
-                }
-            }
-        }
-        console.log(favourites)
+        const favourites = this.getFavourites()
         return (
             <div style={{ height: "100%", width: "100%" }}>
                 <div style={{ paddingLeft: 24, width: `calc(100% - 24px)`, display: "-webkit-box" }}>
-                    <Heading>Favourites</Heading>
+                    <Heading>{favourites.name}</Heading>
+                    <Button style={{ marginLeft: 12, marginTop: 45 }}
+                        icon={<Play />}
+                        label={"Play"}
+                        onClick={() => {
+                            this.props.dispatch(setPlaylist(favourites.id))
+                            this.props.dispatch(firstPlay(favourites))
+                        }}
+                    />
                 </div>
                 <div style={{ width: '100%', borderBottom: '1px solid #555' }} />
-                <Tracks playlist={{ name: 'Favourites', id: 'favourites', tracks: [...favourites] }} playlistId={'favourites'} stars={false} options={false} />
+                <FavouriteTracks playlist={favourites} playlistId={'favourites'} stars={false} options={false} />
             </div>
         )
     }

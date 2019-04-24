@@ -10,7 +10,7 @@ import moment from 'moment'
 import Request from 'request'
 import { findWithAttr } from '../store/reducers/musicReducer'
 import { isLoaded, isEmpty } from 'react-redux-firebase/lib/helpers'
-import { firstPlay, setPlaylist, play } from '../store/actions/musicActions';
+import { firstPlay, setPlaylist, } from '../store/actions/musicActions';
 import history from '../components/helpers/history';
 const youtubeRegex = require('youtube-regex')
 const getYouTubeID = require('get-youtube-id')
@@ -58,7 +58,7 @@ class Playlist extends React.Component {
 
     render() {
 
-        const { playlists, match, music, dispatch } = this.props
+        const { playlists, match, dispatch } = this.props
 
         if (!isLoaded(playlists)) {
             return <Heading>Loading...</Heading>
@@ -103,7 +103,7 @@ class Playlist extends React.Component {
             <div style={{ height: "100%", width: "100%" }}>
                 <div style={{ paddingLeft: 24, width: `calc(100% - 24px)`, display: "-webkit-box" }}>
                     <Heading>{playlist.name}</Heading>
-                    <Button style={{ marginLeft: 12, marginTop: 44 }}
+                    <Button style={{ marginLeft: 12, marginTop: 45 }}
                         icon={<Play />}
                         label={"Play"}
                         onClick={() => {
@@ -111,7 +111,7 @@ class Playlist extends React.Component {
                             dispatch(firstPlay(playlist))
                         }}
                     />
-                    <DropButton style={{ marginLeft: 12, marginTop: 44 }}
+                    <DropButton style={{ marginLeft: 12, marginTop: 45 }}
                         icon={<Add />}
                         label="Add track"
                         dropAlign={{ top: 'bottom', right: 'right' }}

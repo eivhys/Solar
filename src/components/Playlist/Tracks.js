@@ -13,13 +13,25 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
     const addFavourite = (track, playlist) => {
         const playlistRef = firebase.firestore().collection('playlists').doc(playlist.id)
         const key = findWithAttr(playlist.tracks, "ytId", track.ytId)
-        const newTracks = [...playlist.tracks]
-        Object.assign({}, playlist, { tracks: newTracks })
-        newTracks[key].favourite = !tracks[key].favourite
-        playlistRef.update({
-            ...playlist,
-            tracks: newTracks
+        const updatedTrack = {
+            ...playlist.tracks[key],
+            favourite: !playlist.tracks[key].favourite
+        }
+        console.log(updatedTrack.favourite)
+        const updatedTracks = []
+        playlist.tracks.forEach((t, i) => {
+            if (i === key) {
+                updatedTracks.push(updatedTrack)
+            } else {
+                updatedTracks.push(t)
+            }
         })
+
+        playlistRef.set({
+            ...playlist,
+            tracks: [...updatedTracks]
+        })
+
     }
 
     const tracks = playlist.tracks

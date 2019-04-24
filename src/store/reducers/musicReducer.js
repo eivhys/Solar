@@ -80,6 +80,7 @@ const components = (state = initState, action) => {
                 playlist: action.playlist,
             }
         case 'NEXT_TRACK':
+            // tracks in queue
             if (state.queue.length !== 0) {
                 return {
                     ...state,
@@ -89,9 +90,15 @@ const components = (state = initState, action) => {
                     queue: state.queue.splice(0, 0)
                 }
             }
+            // no tracks in queue and last song in list
+            if (state.queue.length === 0 && !state.repeat && findWithAttr(state.playlist.tracks, 'ytId', state.currentTrack.ytId) === state.playlist.tracks.length - 1) {
+                return {
+                    ...initState
+                }
+            }
+            // no queue and more tracks to go
             const next = state.shuffle ? (Math.floor(Math.random() * state.playlist.tracks.length)) : state.playlist.tracks.length - 1 > state.trackNum ? state.trackNum + 1 : 0
             const track = state.playlist.tracks[next]
-            console.log(next)
             return {
                 ...state,
                 trackNum: next,

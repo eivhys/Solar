@@ -21,7 +21,7 @@ class Playlist extends React.Component {
     addPlaylist = (e) => {
         const playlist = {
             name: e.value.name,
-            description: e.value.description,
+            description: e.value.description === undefined ? "" : e.value.description,
             tracks: [],
             userId: firebase.auth().currentUser.uid
         }
@@ -204,8 +204,8 @@ class Playlist extends React.Component {
                     playing={music.playing}
                     onProgress={(e) => dispatch(progress(e.playedSeconds))}
                     onEnded={() => {
-                        dispatch(nextTrack())
                         this.player.seekTo(0)
+                        dispatch(nextTrack())
                     }
                     }
                     onBuffer={() => this.setState({ buffering: true })}

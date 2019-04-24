@@ -43,13 +43,10 @@ class Playlist extends React.Component {
                     }
                     console.log(track)
                     const playlist = this.props.playlists[findWithAttr(this.props.playlists, "id", this.props.match.params.id)]
-                    playlist.tracks = [
-                        ...playlist.tracks,
-                        track
-                    ]
-                    console.log(playlist)
-                    firebase.firestore().collection('playlists').doc(this.props.match.params.id).update(playlist)
-                        .catch(e => console.log(e))
+                    firebase.firestore().collection('playlists').doc(this.props.match.params.id).update({
+                        ...playlist,
+                        tracks: playlist.tracks.concat(track)
+                    })
                     this.setState({ youtubeLink: "" })
                 } else {
                     const err = JSON.parse(body)
@@ -108,15 +105,10 @@ class Playlist extends React.Component {
                     <Heading>{playlist.name}</Heading>
                     <Button style={{ marginLeft: 12, marginTop: 44 }}
                         icon={<Play />}
-                        label={music.playing ? "Pause" : "Play"}
+                        label={"Play"}
                         onClick={() => {
-                            if (music.playlist.tracks === undefined || music.playlist.id !== match.params.id) {
-                                dispatch(setPlaylist(playlist.id))
-                                dispatch(firstPlay(playlist))
-                            }
-                            else if (!music.playing) {
-                                dispatch(play())
-                            }
+                            dispatch(setPlaylist(playlist.id))
+                            dispatch(firstPlay(playlist))
                         }}
                     />
                     <DropButton style={{ marginLeft: 12, marginTop: 44 }}

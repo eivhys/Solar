@@ -7,6 +7,12 @@ body {
   bottom: 0px;
   left: 0px;
   right: 0px;
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+  -webkit-user-drag: none; /* Prevents dragging of images/divs etc */
+  user-drag: none;
 }
 
 .App {
@@ -19,6 +25,7 @@ body {
   left: 0px;
   right: 0px;
 }
+
 .root {
   height: 100%;
   width: 100%;

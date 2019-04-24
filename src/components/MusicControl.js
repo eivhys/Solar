@@ -105,9 +105,14 @@ class Playlist extends React.Component {
             return emptyControls
         }
 
+        /*
         let activePlaylist = playlists.find(p => {
             return p.id === music.playlist.id
         })
+        */
+
+
+        let activePlaylist = music.playlist
 
         if (activePlaylist === undefined) {
             return emptyControls
@@ -143,6 +148,7 @@ class Playlist extends React.Component {
                     />
                     <Button style={{ marginLeft: 10, marginTop: 16 }}
                         icon={<ChapterNext />}
+                        // eslint-disable-next-line
                         disabled={disabled || (currentTrack === tracks.length - 1 && (!music.repeat && !music.shuffle)) && music.queue.length === 0}
                         onClick={(e) => {
                             dispatch(nextTrack())
@@ -222,7 +228,6 @@ class Playlist extends React.Component {
                     }}
                     volume={music.volume / 100}
                     muted={music.muted}
-                    onSeek={e => console.log('onSeek', e)}
                 />
                 {controls}
             </div>

@@ -1,7 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
 import { Menu, Text } from 'grommet'
-import { newTrack, queueTrack, setPlaylist, } from '../../store/actions/musicActions';
+import { newTrack, queueTrack, } from '../../store/actions/musicActions';
 import { connect } from 'react-redux'
 import firebase from 'firebase'
 import { findWithAttr } from '../../store/reducers/musicReducer';
@@ -9,29 +8,6 @@ import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase/'
 
 function FavouriteTracks({ playlist, stars = true, options = true, music, dispatch }) {
-
-    const addFavourite = (track, playlist) => {
-        const playlistRef = firebase.firestore().collection('playlists').doc(playlist.id)
-        const key = findWithAttr(playlist.tracks, "ytId", track.ytId)
-        const updatedTrack = {
-            ...playlist.tracks[key],
-            favourite: !playlist.tracks[key].favourite
-        }
-        const updatedTracks = []
-        playlist.tracks.forEach((t, i) => {
-            if (i === key) {
-                updatedTracks.push(updatedTrack)
-            } else {
-                updatedTracks.push(t)
-            }
-        })
-
-        playlistRef.set({
-            ...playlist,
-            tracks: [...updatedTracks]
-        })
-
-    }
 
     const tracks = playlist.tracks
 

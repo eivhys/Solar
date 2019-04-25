@@ -6,11 +6,12 @@ import history from "./components/helpers/history"
 import firebase from 'firebase'
 import Playlist from './pages/Playlist'
 import './components/helpers/Protototypes'
-import { Box, Heading } from 'grommet'
+import { Box, Heading, Button } from 'grommet'
 import Login from './pages/Login'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import Favourites from './pages/Favourites'
 import Home from './pages/Home'
+import { Google } from 'grommet-icons';
 
 class App extends Component {
 
@@ -45,6 +46,13 @@ class App extends Component {
     this.unregisterAuthObserver()
   }
 
+  callGoogleSignIn() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).catch(function (error) {
+      console.log(error)
+    });
+  }
+
   render() {
     if (!this.state.isSignedIn) {
       return (
@@ -56,13 +64,16 @@ class App extends Component {
           >
             <Box
               alignSelf="center"
-              border={{ color: 'accent-1', size: 'small' }}
+              border={{ color: 'accent-1', size: 'none' }}
               pad="medium"
               style={{ width: '300px', marginTop: '30vh' }}
               alignContent="center"
             >
               <Heading>Sign In</Heading>
-              <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()} />
+              <Button icon={<Google />} label="Sign in with Google" onClick={() => this.callGoogleSignIn()} />
+              {
+                //<StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()} />
+              }
             </Box>
           </Box>
         </div>

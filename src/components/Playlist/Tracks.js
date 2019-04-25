@@ -17,7 +17,6 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
             ...playlist.tracks[key],
             favourite: !playlist.tracks[key].favourite
         }
-        console.log(updatedTrack.favourite)
         const updatedTracks = []
         playlist.tracks.forEach((t, i) => {
             if (i === key) {

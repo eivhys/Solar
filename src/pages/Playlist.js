@@ -35,7 +35,7 @@ class Playlist extends React.Component {
                     const ytInfo = JSON.parse(body).items[0]
                     const track = {
                         title: ytInfo.snippet.title,
-                        length: moment.duration(ytInfo.contentDetails.duration).asMilliseconds() / 1000,
+                        length: (moment.duration(ytInfo.contentDetails.duration).asMilliseconds() / 1000) - 1,
                         ytId: ytInfo.id,
                         favourite: false,
                         artist: ytInfo.snippet.channelTitle,

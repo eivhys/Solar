@@ -41,7 +41,7 @@ class Playlist extends React.Component {
                     <Heading style={{ color: "#333" }}>New Playlist</Heading>
                     <Form onSubmit={this.addPlaylist}>
                         <FormField name="name" label="Name" required={true} />
-                        <FormField name="description" label="Description" />
+                        <FormField name="description" label="Description" placeholder="Optional" />
                         <Button type="submit" color="accent-1" label="Create" />
                     </Form>
                 </Box>

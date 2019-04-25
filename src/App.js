@@ -5,10 +5,8 @@ import { Router, Switch, Route } from 'react-router-dom'
 import history from "./components/helpers/history"
 import firebase from 'firebase'
 import Playlist from './pages/Playlist'
-import './components/helpers/Protototypes'
 import { Box, Heading, Button } from 'grommet'
-import Login from './pages/Login'
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
+//  import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import Favourites from './pages/Favourites'
 import Home from './pages/Home'
 import { Google } from 'grommet-icons';
@@ -72,6 +70,7 @@ class App extends Component {
               <Heading>Sign In</Heading>
               <Button icon={<Google />} label="Sign in with Google" onClick={() => this.callGoogleSignIn()} />
               {
+                // Standard firebase login button
                 //<StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()} />
               }
             </Box>

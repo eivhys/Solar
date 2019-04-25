@@ -87,7 +87,6 @@ class App extends Component {
               <Route exact={true} path="/home" component={Home} />
               <Route exact={true} path="/favourites" component={Favourites} />
               <Route exact={true} path="/playlists/:id" component={Playlist} />
-              <Route exact={true} path="/signin" component={Login} />
             </Switch>
           </Layout>
         </Router>

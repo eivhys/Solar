@@ -3,12 +3,25 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import firebase from 'firebase'
 import { firestoreConnect } from 'react-redux-firebase/'
+import {TextInput, FormField, Form, Button} from 'grommet'
 
-function Playlists({ playlists, dispatch }) {
-    console.log(firebase.auth().currentUser.uid)
-    return (
-        <p>morn</p>
-    )
+function Search({ playlists, dispatch }) {
+    const searchSuggestions = [
+        'Dunkey raps',
+        'Taylor Swift cover',
+        'JRE',
+        'H3H3 Podcast',
+        'Game of Thrones intro music',
+        'DK Donkey Kong',
+        'Django Unchained']
+  return (
+      <div style={{display: '-webkit-box'}}>
+          <Form>
+        <FormField name="name" label="" placeholder={searchSuggestions[Math.floor(Math.random() * searchSuggestions.length)] + '...'} />
+            <Button type="submit" primary label="Search" />
+        </Form>
+      </div>
+  )
 }
 
 export default compose(
@@ -27,4 +40,4 @@ export default compose(
         playlists: state.firestore.ordered.playlists,
         dispatch: state.dispatch
     }))
-)(Playlists)
+)(Search)

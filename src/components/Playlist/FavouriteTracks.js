@@ -8,7 +8,7 @@ import { findWithAttr } from '../../store/reducers/musicReducer';
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase/'
 
-function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
+function FavouriteTracks({ playlist, stars = true, options = true, music, dispatch }) {
 
     const addFavourite = (track, playlist) => {
         const playlistRef = firebase.firestore().collection('playlists').doc(playlist.id)
@@ -49,31 +49,18 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
                         }
                         } >
                             <div style={{ float: "left", display: "flex" }}>
-                                {stars ?
-                                    <Icon type="star" style={{ paddingTop: 25, paddingLeft: 10, paddingRight: 15 }} theme={tracks[key].favourite ? "filled" : "outlined"} onClick={() => addFavourite(tracks[key], playlist)} />
-                                    : <div style={{ width: 25 }} />}
-                                <h3>{tracks[key].title}</h3>
+                                <h3 style={{ marginLeft: 25 }}>{tracks[key].title}</h3>
                             </div>
                             <div style={{ float: "right", marginTop: 12, marginRight: 24 }}>
-                                {options && <Menu
+                                <Menu
                                     label="More"
                                     dropAlign={{ top: 'bottom', right: 'right' }}
                                     items={[
                                         { label: 'Queue', onClick: () => dispatch(queueTrack(tracks[key])) },
                                         { label: 'Share track', onClick: () => { }, disabled: true },
                                         { label: 'Download', onClick: () => { }, disabled: true },
-                                        {
-                                            label: 'Remove from playlist', onClick: () => {
-                                                const updatedPlaylist = {
-                                                    ...playlist,
-                                                    tracks: playlist.tracks.filter(track => track.ytId !== tracks[key].ytId)
-                                                }
-                                                firebase.firestore().collection('playlists').doc(playlist.id).update(updatedPlaylist)
-                                                dispatch(setPlaylist(updatedPlaylist))
-                                            }
-                                        },
                                     ]}
-                                />}
+                                />
                             </div>
                         </div>
                     )
@@ -101,4 +88,4 @@ export default compose(
         dispatch: state.dispatch
     }
     ))
-)(Tracks)
+)(FavouriteTracks)

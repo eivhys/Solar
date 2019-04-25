@@ -1,22 +1,23 @@
-import React, { Component } from 'react';
-import './App.css';
-import Layout from './components/Layout';
-import { Router, Switch, Route } from 'react-router-dom';
-import history from "./components/helpers/history";
+import React, { Component } from 'react'
+import './App.css'
+import Layout from './components/Layout'
+import { Router, Switch, Route } from 'react-router-dom'
+import history from "./components/helpers/history"
 import firebase from 'firebase'
-import Playlist from './pages/Playlist';
-import Dashboard from './pages/Dashboard';
+import Playlist from './pages/Playlist'
 import './components/helpers/Protototypes'
 import { Box, Heading } from 'grommet'
-import Login from './pages/Login';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import Login from './pages/Login'
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
+import Favourites from './pages/Favourites'
+import Home from './pages/Home'
 
 class App extends Component {
 
   // The component's Local state.
   state = {
     isSignedIn: false // Local signed-in state.
-  };
+  }
 
   // Configure FirebaseUI.
   uiConfig = {
@@ -30,18 +31,18 @@ class App extends Component {
       // Avoid redirects after sign-in.
       signInSuccessWithAuthResult: () => false
     }
-  };
+  }
 
   // Listen to the Firebase Auth state and set the local state.
   componentDidMount() {
     this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
       (user) => this.setState({ isSignedIn: !!user })
-    );
+    )
   }
 
   // Make sure we un-register Firebase observers when the component unmounts.
   componentWillUnmount() {
-    this.unregisterAuthObserver();
+    this.unregisterAuthObserver()
   }
 
   render() {
@@ -52,7 +53,7 @@ class App extends Component {
             background="dark-1"
             alignContent="center"
             style={{ minHeight: '100vh' }}
-            >
+          >
             <Box
               alignSelf="center"
               border={{ color: 'accent-1', size: 'small' }}
@@ -65,22 +66,25 @@ class App extends Component {
             </Box>
           </Box>
         </div>
-      );
+      )
     }
     return (
       <div className="App">
         <Router history={history}>
           <Layout>
             <Switch>
-              <Route exact={true} path="/" component={Dashboard} />
+              <Route exact={true} path="/" component={Home} />
+              <Route exact={true} path="/home" component={Home} />
+              <Route exact={true} path="/search" component={Search} />
+              <Route exact={true} path="/favourites" component={Favourites} />
               <Route exact={true} path="/playlists/:id" component={Playlist} />
               <Route exact={true} path="/signin" component={Login} />
             </Switch>
           </Layout>
         </Router>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

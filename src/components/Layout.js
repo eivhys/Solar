@@ -5,6 +5,8 @@ import Sidebar from './Sidebar';
 import MusicControl from './MusicControl';
 import logo from '../media/logo.png'
 import firebase from 'firebase'
+import Resizable from 're-resizable';
+import { connect } from "react-redux";
 
 const capitalizeName = (s) => {
     const words = s.split(" ")
@@ -29,11 +31,23 @@ function Layout(props) {
                     </Box>
                 </div>
                 <Box direction="row">
-                    <Box width="medium" background="dark-1" overflow="auto" >
-                        <div style={{ height: '100%' }}>
-                            <Sidebar />
-                        </div>
-                    </Box>
+                    <Resizable
+                        style={{ backgroundColor: '#333' }}
+                        enable={{ top: false, right: true, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
+                        defaultSize={{
+                            width: props.app.sidebarWidth,
+                            height: '100%'
+                        }}
+                        maxWidth={500}
+                        maxHeight='100%'
+                        minHeight='100%'
+                    >
+                        <Box width="medium" background="dark-1" >
+                            <div style={{ height: '100%', width: '100%' }}>
+                                <Sidebar />
+                            </div>
+                        </Box>
+                    </Resizable>
                     <Box overflow="auto" width="full" background="dark-1" style={{ backgroundColor: '#444' }} >
                         {props.children}
                     </Box>
@@ -47,4 +61,8 @@ function Layout(props) {
     )
 }
 
-export default (Layout)
+export default
+    connect((state, props) => ({
+        app: state.app,
+        dispatch: state.dispatch
+    }))(Layout)

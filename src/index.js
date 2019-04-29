@@ -13,6 +13,7 @@ import { createStore, combineReducers } from 'redux'
 import { ReactReduxFirebaseProvider, firebaseReducer } from 'react-redux-firebase'
 import { createFirestoreInstance, firestoreReducer } from 'redux-firestore' // <- needed if using firestore
 import musicReducer from './store/reducers/musicReducer'
+import appReducer from './store/reducers/appReducer'
 import { applyMiddleware } from 'redux';
 // Logger with default options
 import logger from 'redux-logger'
@@ -42,7 +43,8 @@ firebase.firestore() // <- needed if using firestore
 const rootReducer = combineReducers({
     firebase: firebaseReducer,
     firestore: firestoreReducer, // <- needed if using firestore
-    music: musicReducer
+    music: musicReducer,
+    app: appReducer
 })
 
 // Create store with reducers and initial state

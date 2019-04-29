@@ -35,7 +35,7 @@ function Playlists({ playlists, dispatch, music }) {
             <div style={{ marginLeft: 16, height: '100%' }} >
                 <h3>No playlists found</h3>
                 <p>Create one with the <b>+</b> button</p>
-                <LinkDown style={{ bottom: 150, position: "absolute" }} color="accent-1" />
+                <LinkDown style={{ bottom: 15, position: "absolute" }} color="accent-1" />
             </div>
         </div >
     }
@@ -60,7 +60,7 @@ function Playlists({ playlists, dispatch, music }) {
                                     music.playlist.id === playlists[key].id ? {
                                         backgroundColor: '#444',
                                         borderLeft: "5px #6FFFB0 solid",
-                                        borderRight: "2px #333 solid"
+                                        borderRight: "1px #333 solid"
                                     } : {}
                                 }>
                                 <h3 className="titleContent">{playlists[key].name}</h3>

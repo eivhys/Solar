@@ -32,17 +32,15 @@ function Layout(props) {
                 </div>
                 <Box direction="row">
                     <Resizable
-                        style={{ backgroundColor: '#333' }}
-                        enable={{ top: false, right: true, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
+                        style={{ backgroundColor: '#333', overflowX: 'hidden' }}
+                        enable={{ top: false, right: false, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
+                        minWidth={200}
                         defaultSize={{
-                            width: props.app.sidebarWidth,
-                            height: '100%'
+                            width: 400
                         }}
                         maxWidth={500}
-                        maxHeight='100%'
-                        minHeight='100%'
                     >
-                        <Box width="medium" background="dark-1" >
+                        <Box width='large' background="dark-1" >
                             <div style={{ height: '100%', width: '100%' }}>
                                 <Sidebar />
                             </div>

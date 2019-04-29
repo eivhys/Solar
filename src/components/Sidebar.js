@@ -6,8 +6,9 @@ import { isLoaded, isEmpty } from 'react-redux-firebase/lib/helpers'
 import { Update, LinkDown } from 'grommet-icons'
 import firebase from 'firebase'
 import history from './helpers/history'
+import { setPlaylist, firstPlay } from "../store/actions/musicActions";
 
-function Playlists({ playlists, dispatch }) {
+function Playlists({ playlists, dispatch, music }) {
 
     const menuItems = ["Search", "Home", "Trending", "Favourites"]
 
@@ -50,7 +51,12 @@ function Playlists({ playlists, dispatch }) {
                             <div className="sidebarItem track" key={playlists[key].id} onClick={() => {
                                 history.push(`/playlists/${playlists[key].id}`)
                             }
-                            }>
+                            }
+                                onDoubleClick={() => {
+                                    dispatch(setPlaylist(playlists[key].id))
+                                    dispatch(firstPlay(playlists[key]))
+                                }}
+                                style={{ backgroundColor: music.playlist.id === playlists[key].id ? '#444' : '' }}>
                                 <h3 className="titleContent">{playlists[key].name}</h3>
                             </div>
                         )
@@ -75,6 +81,7 @@ export default compose(
     }), // or { collection: 'todos' }
     connect((state, props) => ({
         playlists: state.firestore.ordered.playlists,
-        dispatch: state.dispatch
+        dispatch: state.dispatch,
+        music: state.music
     }))
 )(Playlists)

@@ -5,7 +5,7 @@ import { firestoreConnect } from 'react-redux-firebase/'
 import Tracks from '../components/Playlist/Tracks'
 import firebase from 'firebase'
 import { Button, DropButton, Box, Form, FormField, Heading, Menu, Text } from 'grommet'
-import { Play, Add, LinkPrevious, Home } from 'grommet-icons'
+import { Play, Add, LinkPrevious, Home, More } from 'grommet-icons'
 import moment from 'moment'
 import Request from 'request'
 import { findWithAttr } from '../store/reducers/musicReducer'
@@ -127,7 +127,7 @@ class Playlist extends React.Component {
                     />
                     <Menu
                         style={{ float: 'right', marginTop: 44 }}
-                        label="More"
+                        icon={<More/>}
                         dropAlign={{ top: 'bottom', right: 'right' }}
                         items={[
                             { label: 'Share Playlist', onClick: () => { }, disabled: true },

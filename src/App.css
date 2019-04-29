@@ -117,3 +117,9 @@ body {
 .spin {
     animation: spin 1000ms linear infinite;
 }
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

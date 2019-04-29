@@ -7,6 +7,7 @@ import firebase from 'firebase'
 import { findWithAttr } from '../../store/reducers/musicReducer';
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase/'
+import { More } from 'grommet-icons';
 
 function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
 
@@ -44,7 +45,12 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
             {
                 Object.keys(tracks).map(
                     (key, id) => (
-                        <div className="track" key={tracks[key].ytId} style={{ backgroundColor: playlist.id === music.playlist.id && music.currentTrack.ytId === tracks[key].ytId ? "#555555" : "" }} onDoubleClick={() => {
+                        <div className="track" key={tracks[key].ytId} style={
+                            music.playlist.id === playlist.id && tracks[key].ytId === music.currentTrack.ytId ? {
+                                backgroundColor: '#555',
+                                borderLeft: "5px #6FFFB0 solid"
+                            } : {}
+                        } onDoubleClick={() => {
                             dispatch(newTrack(findWithAttr(tracks, "ytId", tracks[key].ytId), tracks[key], playlist))
                         }
                         } >
@@ -56,7 +62,7 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
                             </div>
                             <div style={{ float: "right", marginTop: 12, marginRight: 24 }}>
                                 {options && <Menu
-                                    label="More"
+                                    icon={<More />}
                                     dropAlign={{ top: 'bottom', right: 'right' }}
                                     items={[
                                         { label: 'Queue', onClick: () => dispatch(queueTrack(tracks[key])) },
@@ -69,7 +75,9 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
                                                     tracks: playlist.tracks.filter(track => track.ytId !== tracks[key].ytId)
                                                 }
                                                 firebase.firestore().collection('playlists').doc(playlist.id).update(updatedPlaylist)
-                                                dispatch(setPlaylist(updatedPlaylist))
+                                                if (music.playlist.id === playlist.id) {
+                                                    dispatch(setPlaylist(updatedPlaylist))
+                                                }
                                             }
                                         },
                                     ]}

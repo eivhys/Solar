@@ -56,7 +56,13 @@ function Playlists({ playlists, dispatch, music }) {
                                     dispatch(setPlaylist(playlists[key].id))
                                     dispatch(firstPlay(playlists[key]))
                                 }}
-                                style={{ backgroundColor: music.playlist.id === playlists[key].id ? '#444' : '' }}>
+                                style={
+                                    music.playlist.id === playlists[key].id ? {
+                                        backgroundColor: '#444',
+                                        borderLeft: "5px #6FFFB0 solid",
+                                        borderRight: "2px #333 solid"
+                                    } : {}
+                                }>
                                 <h3 className="titleContent">{playlists[key].name}</h3>
                             </div>
                         )

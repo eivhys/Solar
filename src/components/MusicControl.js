@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { Button, RangeInput, DropButton, Box, Form, FormField, Heading } from 'grommet'
+import { Button, RangeInput, DropButton, Box, Form, FormField, Heading, Text } from 'grommet'
 import { Play, ChapterNext, ChapterPrevious, PowerReset, Network, Pause, VolumeMute, Volume, Add } from 'grommet-icons'
 import { progress, togglePlay, muteVolume, changeVolume, shuffle, prevTrack, nextTrack, repeat } from '../store/actions/musicActions';
 import ReactPlayer from 'react-player'
@@ -31,8 +31,9 @@ class Playlist extends React.Component {
     }
 
     render() {
+        const buttonMargin = { left: 'small' }
         const { music, dispatch, playlists } = this.props
-        const addPlaylist = (<DropButton style={{ marinLeft: 10 }}
+        const addPlaylist = (<DropButton
             icon={<Add />}
             label=""
             dropAlign={{ bottom: 'bottom', left: 'left' }}
@@ -47,55 +48,58 @@ class Playlist extends React.Component {
                 </Box>
             }
         />)
+
+
         const emptyControls = (
-            <div>
-                <div style={{ display: "-webkit-box" }}>
+            <Box overflow="hidden">
+                <Box direction="row" overflow="hidden">
                     {addPlaylist}
-                    <Button style={{ marginLeft: 10, marginTop: 16 }}
+                    <Button margin={buttonMargin}
                         icon={<Network />}
                         active={music.shuffle}
                         onClick={() => dispatch(shuffle())}
                     />
-                    <Button style={{ marginLeft: 10, marginTop: 16 }}
+                    <Button margin={buttonMargin}
                         icon={<ChapterPrevious />}
                         disabled={true}
                     />
-                    <Button style={{ marginLeft: 10, marginTop: 16 }}
+                    <Button margin={buttonMargin}
                         icon={music.playing ? <Pause /> : <Play />}
                         disabled={true}
                     />
-                    <Button style={{ marginLeft: 10, marginTop: 16 }}
+                    <Button margin={buttonMargin}
                         icon={<ChapterNext />}
                         disabled={true}
                     />
-                    <Button style={{ marginLeft: 10, marginTop: 16 }}
+                    <Button margin={buttonMargin}
                         icon={<PowerReset />}
                         active={music.repeat}
                         onClick={() => dispatch(repeat())}
                     />
 
-                    <Button style={{ marginLeft: 10, marginTop: 16 }}
+                    <Button margin={buttonMargin}
                         icon={music.muted ? <VolumeMute /> : <Volume />}
                         onClick={() => dispatch(muteVolume())}
                     />
                     <RangeInput
-                        style={{ width: 100 }}
+                        style={{ width: 100, marginTop: 12 }}
                         value={music.muted ? 0 : music.volume}
                         min={0}
                         max={100}
                         step={1}
                         onChange={event => dispatch(changeVolume(event.target.value))}
                     />
-                </div>
+                </Box>
                 <RangeInput
-                    style={{ width: '100%', marginTop: 11.94 }}
+                    margin={{ top: 'small' }}
+                    style={{ width: '100%' }}
                     value={music.timePlayed}
                     min={0}
                     max={1}
                     step={1}
                     disabled={true}
                 />
-            </div>
+            </Box>
         )
 
         if (!isLoaded(playlists)) {
@@ -124,15 +128,15 @@ class Playlist extends React.Component {
         const trackUndef = tracks === undefined || tracks[currentTrack] === undefined
 
         const controls = (
-            <div>
-                <div style={{ display: "-webkit-box" }}>
+            <Box overflow="hidden">
+                <Box direction="row" overflow="hidden">
                     {addPlaylist}
-                    <Button style={{ marginLeft: 10, marginTop: 16 }}
+                    <Button margin={buttonMargin}
                         icon={<Network />}
                         active={music.shuffle}
                         onClick={() => dispatch(shuffle())}
                     />
-                    <Button style={{ marginLeft: 10, marginTop: 16 }}
+                    <Button margin={buttonMargin}
                         icon={<ChapterPrevious />}
                         disabled={disabled || (currentTrack === 0 && (!music.repeat && !music.shuffle))}
                         onClick={(e) => {
@@ -141,12 +145,12 @@ class Playlist extends React.Component {
                         }
                         }
                     />
-                    <Button style={{ marginLeft: 10, marginTop: 16 }}
+                    <Button margin={buttonMargin}
                         icon={music.playing ? <Pause /> : <Play />}
                         disabled={disabled}
                         onClick={() => dispatch(togglePlay())}
                     />
-                    <Button style={{ marginLeft: 10, marginTop: 16 }}
+                    <Button margin={buttonMargin}
                         icon={<ChapterNext />}
                         // eslint-disable-next-line
                         disabled={disabled || (currentTrack === tracks.length - 1 && (!music.repeat && !music.shuffle)) && music.queue.length === 0}
@@ -156,35 +160,31 @@ class Playlist extends React.Component {
                         }
                         }
                     />
-                    <Button style={{ marginLeft: 10, marginTop: 16 }}
+                    <Button margin={buttonMargin}
                         icon={<PowerReset className={this.state.buffering ? "spin" : ""} />}
                         active={music.repeat}
                         onClick={() => dispatch(repeat())}
                     />
 
-                    <Button style={{ marginLeft: 10, marginTop: 16 }}
+                    <Button margin={buttonMargin}
                         icon={music.muted ? <VolumeMute /> : <Volume />}
                         onClick={() => dispatch(muteVolume())}
                     />
                     <RangeInput
-                        style={{ width: 100 }}
+                        style={{ width: 100, marginTop: 12 }}
                         value={music.muted ? 0 : music.volume}
                         min={0}
                         max={100}
                         step={1}
                         onChange={event => dispatch(changeVolume(event.target.value))}
                     />
-                    <div className="cardTitles">
-                        <div className="title">
-                            <div className="titleContent">
-                                <h4 style={{ marginTop: 28, marginLeft: 24 }}>
-                                    {trackUndef ? "" : music.currentTrack.title}</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <Box>
+                        <Text className="truncate" margin="small">
+                            {trackUndef ? "" : music.currentTrack.title}</Text>
+                    </Box>
+                </Box>
                 <RangeInput
-                    style={{ width: '100%', marginTop: trackUndef ? 11.94 : 0 }}
+                    fill="horizontal"
                     value={music.timePlayed}
                     min={0}
                     max={trackUndef ? 1 : music.currentTrack.length}
@@ -195,13 +195,13 @@ class Playlist extends React.Component {
                     }
                     }
                 />
-            </div>
+            </Box>
         )
 
         if (tracks === undefined) {
             return controls
         } else {
-            return <div>
+            return <Box>
                 <ReactPlayer
                     ref={this.ref}
                     height={0}
@@ -230,7 +230,7 @@ class Playlist extends React.Component {
                     muted={music.muted}
                 />
                 {controls}
-            </div>
+            </Box>
         }
     }
 

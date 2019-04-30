@@ -17,7 +17,7 @@ function Layout(props) {
     return (
         <Grommet theme={grommet} full style={{ overflowX: 'hidden' }}>
             <Grid fill rows={["auto", "flex", "auto"]}>
-                <div style={{}}>
+                <Box>
                     <Box tag="header" background="dark-1" pad="small" style={{ borderBottom: '1px solid #6FFFB0', display: 'list-item' }}>
                         <img style={{ width: 20, float: 'left' }} src={logo} alt="" />
                         <DropButton
@@ -29,7 +29,7 @@ function Layout(props) {
                                 <Button color="accent-1" label="Sign out" onClick={() => firebase.auth().signOut()} />
                             </Box>} />
                     </Box>
-                </div>
+                </Box>
                 <Box direction="row">
                     <Resizable
                         style={{ backgroundColor: '#333', overflowX: 'hidden' }}
@@ -39,11 +39,13 @@ function Layout(props) {
                             width: 400
                         }}
                         maxWidth={500}
+                    //maxHeight='100%'
+                    //minHeight='100%'
                     >
                         <Box width='large' background="dark-1" >
-                            <div style={{ height: '100%', width: '100%' }}>
+                            <Box fill>
                                 <Sidebar />
-                            </div>
+                            </Box>
                         </Box>
                     </Resizable>
                     <Box overflow="auto" width="full" background="dark-1" style={{ backgroundColor: '#444' }} >

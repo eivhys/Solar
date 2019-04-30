@@ -32,6 +32,7 @@ class Playlist extends React.Component {
 
     render() {
 
+        const buttonMargin = { left: 'small' }
         const { playlists } = this.props
 
         if (!isLoaded(playlists)) {
@@ -69,21 +70,25 @@ class Playlist extends React.Component {
         }
         const favourites = this.getFavourites()
         return (
-            <div style={{ height: "100%", width: "100%" }}>
-                <div style={{ paddingLeft: 24, width: `calc(100% - 24px)`, display: "-webkit-box" }}>
-                    <Heading>{favourites.name}</Heading>
-                    <Button style={{ marginLeft: 12, marginTop: 45 }}
-                        icon={<Play />}
-                        label={"Play"}
-                        onClick={() => {
-                            this.props.dispatch(setPlaylist(favourites.id))
-                            this.props.dispatch(firstPlay(favourites))
-                        }}
-                    />
-                </div>
-                <div style={{ width: '100%', borderBottom: '1px solid #555' }} />
+            <Box fill>
+                <Box margin={{ left: 'small', right: 'small' }} >
+                    <Box fill align="baseline" overflow="hidden">
+                        <Heading>Favourites
+                            <Button
+                                margin={buttonMargin}
+                                icon={<Play />}
+                                label={"Play"}
+                                onClick={() => {
+                                    this.props.dispatch(setPlaylist(favourites.id))
+                                    this.props.dispatch(firstPlay(favourites))
+                                }}
+                            />
+                        </Heading>
+                    </Box>
+                </Box>
+                <Box style={{ width: '100%', borderBottom: '1px solid #555' }} />
                 <FavouriteTracks playlist={favourites} playlistId={'favourites'} stars={false} options={false} />
-            </div>
+            </Box>
         )
     }
 

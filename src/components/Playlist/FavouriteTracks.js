@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, Text } from 'grommet'
+import { Menu, Text, Box } from 'grommet'
 import { newTrack, queueTrack, } from '../../store/actions/musicActions';
 import { connect } from 'react-redux'
 import firebase from 'firebase'
@@ -17,11 +17,11 @@ function FavouriteTracks({ playlist, stars = true, options = true, music, dispat
     }
 
     return (
-        <div className="trackList" >
+        <Box className="trackList" >
             {
                 Object.keys(tracks).map(
                     (key, id) => (
-                        <div className="track" key={tracks[key].ytId} style={
+                        <Box className="track" key={tracks[key].ytId} style={
                             music.playlist.id === playlist.id && tracks[key].ytId === music.currentTrack.ytId ? {
                                 backgroundColor: '#555',
                                 borderLeft: "5px #6FFFB0 solid"
@@ -30,25 +30,28 @@ function FavouriteTracks({ playlist, stars = true, options = true, music, dispat
                             dispatch(newTrack(findWithAttr(tracks, "ytId", tracks[key].ytId), tracks[key], playlist))
                         }
                         } >
-                            <div style={{ float: "left", display: "flex" }}>
-                                <h3 style={{ marginLeft: 25 }}>{tracks[key].title}</h3>
-                            </div>
-                            <div style={{ float: "right", marginTop: 12, marginRight: 24 }}>
-                                <Menu
-                                    icon={<More />}
-                                    dropAlign={{ top: 'bottom', right: 'right' }}
-                                    items={[
-                                        { label: 'Queue', onClick: () => dispatch(queueTrack(tracks[key])) },
-                                        { label: 'Share track', onClick: () => { }, disabled: true },
-                                        { label: 'Download', onClick: () => { }, disabled: true },
-                                    ]}
-                                />
-                            </div>
-                        </div>
+                            <Box fill="horizontal" direction="row" alignContent="between" overflow="hidden" >
+                                <Box direction="row" fill="horizontal">
+                                    <Box style={{ width: 25, heigth: 15 }} />
+                                    <Text size="large" margin={{ top: '8px' }}>{tracks[key].title}</Text>
+                                </Box>
+                                <Box direction="row">
+                                    <Menu
+                                        icon={<More />}
+                                        dropAlign={{ top: 'bottom', right: 'right' }}
+                                        items={[
+                                            { label: 'Queue', onClick: () => dispatch(queueTrack(tracks[key])) },
+                                            { label: 'Share track', onClick: () => { }, disabled: true },
+                                            { label: 'Download', onClick: () => { }, disabled: true },
+                                        ]}
+                                    />
+                                </Box>
+                            </Box>
+                        </Box>
                     )
                 )
             }
-        </div>
+        </Box>
     )
 }
 

@@ -7,51 +7,57 @@ import { Update, LinkDown } from 'grommet-icons'
 import firebase from 'firebase'
 import history from './helpers/history'
 import { setPlaylist, firstPlay } from "../store/actions/musicActions";
+import { Box, Text } from 'grommet';
 
 function Playlists({ playlists, dispatch, music }) {
 
     const menuItems = ["Search", "Home", "Trending", "Favourites"]
 
-    const menuButtons = <div style={{ borderBottom: '1px solid #444' }}>{Object.keys(menuItems).map(
+    const menuButtons = <Box>{Object.keys(menuItems).map(
         (key, id) => (
-            <div className="sidebarItem track" key={menuItems[key]} onClick={() => {
-                history.push(`/${menuItems[key].toLowerCase()}`)
-            }
-            }>
-                <h3 className="titleContent">{menuItems[key]}</h3>
-            </div>
+            <Box className="sidebarItem track" key={menuItems[key]}
+                pad={{ left: 'small' }}
+                onClick={() => {
+                    history.push(`/${menuItems[key].toLowerCase()}`)
+                }
+                }>
+                <Text className="titleContent" margin={{ bottom: '10px', top: '10px' }} >{menuItems[key]}</Text>
+            </Box>
         )
-    )}</div>
+    )
+    }</Box >
 
     if (!isLoaded(playlists)) {
-        return <div>
+        return <Box>
             {menuButtons}
             <Update color="white" size="medium" className="spin" />
-        </div>
+        </Box>
     }
     if (isEmpty(playlists)) {
-        return <div>
+        return <Box>
             {menuButtons}
-            <div style={{ marginLeft: 16, height: '100%' }} >
-                <h3>No playlists found</h3>
+            <Box fill="vertical" >
+                <Text>No playlists found</Text>
                 <p>Create one with the <b>+</b> button</p>
                 <LinkDown style={{ bottom: 15, position: "absolute" }} color="accent-1" />
-            </div>
-        </div >
+            </Box>
+        </Box >
     }
 
 
     return (
-        <div style={{ height: "100%" }}>
-            <div style={{ height: "100%", width: '100%', float: "left", }}>
+        <Box fill="vertical">
+            <Box fill>
                 {menuButtons}
                 {
                     Object.keys(playlists).map(
                         (key, id) => (
-                            <div className="sidebarItem track" key={playlists[key].id} onClick={() => {
-                                history.push(`/playlists/${playlists[key].id}`)
-                            }
-                            }
+                            <Box className="sidebarItem track" key={playlists[key].id}
+                                pad={{ left: 'small' }}
+                                onClick={() => {
+                                    history.push(`/playlists/${playlists[key].id}`)
+                                }
+                                }
                                 onDoubleClick={() => {
                                     dispatch(setPlaylist(playlists[key].id))
                                     dispatch(firstPlay(playlists[key]))
@@ -63,13 +69,13 @@ function Playlists({ playlists, dispatch, music }) {
                                         borderRight: "1px #333 solid"
                                     } : {}
                                 }>
-                                <h3 className="titleContent">{playlists[key].name}</h3>
-                            </div>
+                                <Text className="titleContent" margin={{ bottom: '10px', top: '10px' }} >{playlists[key].name}</Text>
+                            </Box>
                         )
                     )
                 }
-            </div>
-        </div>
+            </Box>
+        </Box>
     )
 }
 

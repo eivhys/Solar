@@ -38,7 +38,6 @@ body {
 }
 
 .sidebarItem {
-  padding-left: 15px;
   transition: all 150ms ease;
   left: 0px;
   border-bottom: 1px solid #444; 
@@ -64,7 +63,7 @@ body {
 .track {
     transition: all 150ms ease;
     border-top: #55555500 solid 1px;
-    border-bottom: #55555500 solid 1px;
+    border-bottom: #555555 solid 1px;
 }
 
 .track:hover {

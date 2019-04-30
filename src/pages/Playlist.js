@@ -82,7 +82,7 @@ class Playlist extends React.Component {
                             />
                             <DropButton
                                 margin={buttonMargin}
-                                style={{marginBottom: 5}}
+                                style={{ marginBottom: 5 }}
                                 icon={<Add />}
                                 label="Add track"
                                 dropAlign={{ top: 'bottom', right: 'right' }}
@@ -97,7 +97,7 @@ class Playlist extends React.Component {
                                 }
                             />
                             <Menu
-                                label=""
+                                label="More"
                                 margin={{ ...buttonMargin }}
                                 icon={<More />}
                                 dropAlign={{ top: 'bottom', right: 'right' }}

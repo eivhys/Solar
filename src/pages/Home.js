@@ -10,10 +10,10 @@ class Home extends Component {
     render() {
         console.log(this.props)
         return (
-            <Box fill>
+            <Box fill margin={{left: 'small'}}>
                 <Heading>Home</Heading>
-                <Box alignSelf="center" fill overflow="hidden">
-                    <BrowseTrack/>
+                <Box>
+                    <BrowseTrack />
                 </Box>
             </Box>
         );

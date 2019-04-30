@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { Button, RangeInput, DropButton, Box, Form, FormField, Heading, Text, Keyboard } from 'grommet'
+import { Button, RangeInput, DropButton, Box, Form, FormField, Heading, Text, Keyboard, Tabs, Tab } from 'grommet'
 import { Play, ChapterNext, ChapterPrevious, PowerReset, Network, Pause, VolumeMute, Volume, Add } from 'grommet-icons'
 import { progress, togglePlay, muteVolume, changeVolume, shuffle, prevTrack, nextTrack, repeat } from '../store/actions/musicActions';
 import ReactPlayer from 'react-player'
@@ -39,12 +39,24 @@ class Playlist extends React.Component {
             dropAlign={{ bottom: 'bottom', left: 'left' }}
             dropContent={
                 <Box elevation="xlarge" alignSelf="center" pad="large" width="medium" background="light-1">
-                    <Heading style={{ color: "#333" }}>New Playlist</Heading>
-                    <Form onSubmit={this.addPlaylist}>
-                        <FormField name="name" label="Name" required={true} />
-                        <FormField name="description" label="Description" placeholder="Optional" />
-                        <Button type="submit" color="accent-1" label="Create" />
-                    </Form>
+                    <Tabs>
+                        <Tab title="Playlist">
+                            <Heading style={{ color: "#333" }}>New Playlist</Heading>
+                            <Form onSubmit={this.addPlaylist}>
+                                <FormField name="name" label="Name" required={true} />
+                                <FormField name="description" label="Description" placeholder="Optional" />
+                                <Button type="submit" color="accent-1" label="Create" />
+                            </Form>
+                        </Tab>
+                        <Tab title="SubFeed">
+                            <Heading style={{ color: "#333", fontSize: 46 }}>New SubFeed</Heading>
+                            <Form onSubmit={this.addPlaylist}>
+                                <FormField name="name" label="Name" required={true} />
+                                <FormField name="description" label="Description" placeholder="Optional" />
+                                <Button type="submit" color="accent-1" label="Create" />
+                            </Form>
+                        </Tab>
+                    </Tabs>
                 </Box>
             }
         />)

@@ -48,7 +48,7 @@ function Layout(props) {
                             </Box>
                         </Box>
                     </Resizable>
-                    <Box overflow="auto" width="full" background="dark-1" style={{ backgroundColor: '#444' }} >
+                    <Box overflow="hidden" fill background="dark-1" style={{ backgroundColor: '#444' }} >
                         {props.children}
                     </Box>
                 </Box>

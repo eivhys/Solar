@@ -11,7 +11,7 @@ import { addTrack } from '../components/helpers/firebaseActions';
 class BrowseTrack extends Component {
     render() {
         return (
-            <Box height="small" width="medium" margin="medium">
+            <Box height="small" width="medium">
                 <Image fit="cover" src="//v2.grommet.io/assets/Wilderpeople_Ricky.jpg" />
                 <Box direction="row" fill="horizontal" alignContent="stretch" background="dark-2">
                     <Text margin="small" >Title</Text>

@@ -64,9 +64,7 @@ function Playlists({ playlists, dispatch, music }) {
                                 }}
                                 style={
                                     music.playlist.id === playlists[key].id ? {
-                                        backgroundColor: '#444',
-                                        borderLeft: "5px #6FFFB0 solid",
-                                        borderRight: "1px #6FFFB0 solid"
+                                        borderLeft: "5px #6FFFB0 solid"
                                     } : {
                                         }
                                 }>

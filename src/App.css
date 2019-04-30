@@ -40,13 +40,7 @@ body {
 .sidebarItem {
   transition: all 150ms ease;
   left: 0px;
-  border-bottom: 1px solid #444; 
-}
-
-.sidebarItem>h3 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-size: 19px;
+  border-bottom: 1px solid #393939; 
 }
 
 .sidebarItem:hover {

@@ -15,7 +15,7 @@ function Playlists({ playlists, dispatch, music }) {
 
     const menuButtons = <Box>{Object.keys(menuItems).map(
         (key, id) => (
-            <Box className="sidebarItem track" key={menuItems[key]}
+            <Box className="sidebarItem" key={menuItems[key]}
                 pad={{ left: 'small' }}
                 onClick={() => {
                     history.push(`/${menuItems[key].toLowerCase()}`)
@@ -52,7 +52,7 @@ function Playlists({ playlists, dispatch, music }) {
                 {
                     Object.keys(playlists).map(
                         (key, id) => (
-                            <Box className="sidebarItem track" key={playlists[key].id}
+                            <Box className="sidebarItem" key={playlists[key].id}
                                 pad={{ left: 'small' }}
                                 onClick={() => {
                                     history.push(`/playlists/${playlists[key].id}`)
@@ -66,8 +66,9 @@ function Playlists({ playlists, dispatch, music }) {
                                     music.playlist.id === playlists[key].id ? {
                                         backgroundColor: '#444',
                                         borderLeft: "5px #6FFFB0 solid",
-                                        borderRight: "1px #333 solid"
-                                    } : {}
+                                        borderRight: "1px #6FFFB0 solid"
+                                    } : {
+                                        }
                                 }>
                                 <Text className="titleContent" margin={{ bottom: '10px', top: '10px' }} >{playlists[key].name}</Text>
                             </Box>

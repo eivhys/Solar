@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { Button, RangeInput, DropButton, Box, Form, FormField, Heading, Text } from 'grommet'
+import { Button, RangeInput, DropButton, Box, Form, FormField, Heading, Text, Keyboard } from 'grommet'
 import { Play, ChapterNext, ChapterPrevious, PowerReset, Network, Pause, VolumeMute, Volume, Add } from 'grommet-icons'
 import { progress, togglePlay, muteVolume, changeVolume, shuffle, prevTrack, nextTrack, repeat } from '../store/actions/musicActions';
 import ReactPlayer from 'react-player'
@@ -126,6 +126,8 @@ class Playlist extends React.Component {
         const currentTrack = music.trackNum
         const disabled = (tracks === undefined || tracks[currentTrack] === undefined) ? true : false
         const trackUndef = tracks === undefined || tracks[currentTrack] === undefined
+        // eslint-disable-next-line no-mixed-operators
+        const nextDisabled = disabled || (currentTrack === tracks.length - 1 && (!music.repeat && !music.shuffle)) && music.queue.length === 0
 
         const controls = (
             <Box overflow="hidden">
@@ -152,8 +154,7 @@ class Playlist extends React.Component {
                     />
                     <Button margin={buttonMargin}
                         icon={<ChapterNext />}
-                        // eslint-disable-next-line
-                        disabled={disabled || (currentTrack === tracks.length - 1 && (!music.repeat && !music.shuffle)) && music.queue.length === 0}
+                        disabled={nextDisabled}
                         onClick={(e) => {
                             dispatch(nextTrack())
                             this.player.seekTo(0)
@@ -202,6 +203,7 @@ class Playlist extends React.Component {
             return controls
         } else {
             return <Box>
+
                 <ReactPlayer
                     ref={this.ref}
                     height={0}
@@ -229,7 +231,25 @@ class Playlist extends React.Component {
                     volume={music.volume / 100}
                     muted={music.muted}
                 />
-                {controls}
+                <Keyboard
+                    onRight={() => {
+                        if (!nextDisabled) {
+                            dispatch(nextTrack())
+                        }
+                    }}
+                    onLeft={() => {
+                        if (!(disabled || (currentTrack === 0 && (!music.repeat && !music.shuffle)))) {
+                            dispatch(prevTrack())
+                        }
+                    }}
+                    onSpace={() => {
+                        if (!disabled) {
+                            dispatch(togglePlay())
+                        }
+                    }}
+                >
+                    {controls}
+                </Keyboard>
             </Box>
         }
     }

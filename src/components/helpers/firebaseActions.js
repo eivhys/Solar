@@ -2,8 +2,32 @@ import moment from 'moment'
 import Request from 'request'
 import firebase from 'firebase'
 import history from '../helpers/history';
+import { findWithAttr } from "../../store/reducers/musicReducer";
 const getYouTubeID = require('get-youtube-id')
 const youtubeRegex = require('youtube-regex')
+
+export const addFavourite = (track, playlist) => {
+    const playlistRef = firebase.firestore().collection('playlists').doc(playlist.id)
+    const key = findWithAttr(playlist.tracks, "ytId", track.ytId)
+    const updatedTrack = {
+        ...playlist.tracks[key],
+        favourite: !playlist.tracks[key].favourite
+    }
+    const updatedTracks = []
+    playlist.tracks.forEach((t, i) => {
+        if (i === key) {
+            updatedTracks.push(updatedTrack)
+        } else {
+            updatedTracks.push(t)
+        }
+    })
+
+    playlistRef.set({
+        ...playlist,
+        tracks: [...updatedTracks]
+    })
+
+}
 
 export const addTrack = (songlink, playlist) => {
     if (youtubeRegex().test(songlink)) {

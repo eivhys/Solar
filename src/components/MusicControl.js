@@ -154,7 +154,7 @@ class Playlist extends React.Component {
                         icon={<ChapterPrevious />}
                         disabled={disabled || (currentTrack === 0 && (!music.repeat && !music.shuffle))}
                         onClick={(e) => {
-                            dispatch(prevTrack())
+                            dispatch(prevTrack(tracks))
                             this.player.seekTo(0)
                         }
                         }
@@ -189,7 +189,7 @@ class Playlist extends React.Component {
                         min={0}
                         max={100}
                         step={1}
-                        onChange={event => dispatch(changeVolume(event.target.value))}
+                        onChange={async event => dispatch(changeVolume(event.target.value))}
                     />
                     <Box>
                         <Text className="truncate" margin="small">

@@ -110,7 +110,7 @@ const components = (state = initState, action) => {
             const last = state.trackNum > 0 ? state.trackNum - 1 : 0
             return {
                 ...state,
-                currentTrack: state.playing.tracks[last],
+                currentTrack: state.playlist.tracks[last],
                 trackNum: last,
                 timePlayed: 0,
                 playing: true

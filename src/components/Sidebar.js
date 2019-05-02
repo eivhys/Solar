@@ -28,7 +28,7 @@ function Playlists({ playlists, dispatch, music }) {
     }</Box >
 
     if (!isLoaded(playlists)) {
-        return <Box>
+        return <Box alignContent="center" margin="medium">
             {menuButtons}
             <Update color="white" size="medium" className="spin" />
         </Box>
@@ -36,7 +36,7 @@ function Playlists({ playlists, dispatch, music }) {
     if (isEmpty(playlists)) {
         return <Box>
             {menuButtons}
-            <Box fill="vertical" >
+            <Box fill="vertical" marign="medium" >
                 <Text>No playlists found</Text>
                 <p>Create one with the <b>+</b> button</p>
                 <LinkDown style={{ bottom: 15, position: "absolute" }} color="accent-1" />

@@ -18,6 +18,16 @@ class Playlist extends React.Component {
         this.player = player
     }
 
+    sToTime(duration) {
+        let seconds = parseInt((duration % 60))
+        let minutes = parseInt((duration / 60) % 60)
+
+        minutes = (minutes < 10) ? `0${minutes}` : minutes;
+        seconds = (seconds < 10) ? `0${seconds}` : seconds;
+        console.log(`${minutes}:${seconds}`)
+        return `${minutes}:${seconds}`;
+    }
+
     addPlaylist = (e) => {
         const playlist = {
             name: e.value.name,
@@ -193,6 +203,7 @@ class Playlist extends React.Component {
                     />
                     <Box>
                         <Text className="truncate" margin="small">
+                            {trackUndef ? "" : `${this.sToTime(Math.floor(music.timePlayed))}/${this.sToTime(Math.floor(music.currentTrack.length))}`}&emsp;
                             {trackUndef ? "" : music.currentTrack.title}</Text>
                     </Box>
                 </Box>

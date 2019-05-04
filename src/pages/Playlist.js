@@ -68,7 +68,7 @@ class Playlist extends React.Component {
 
         return (
             <Box full>
-                <Box margin={{ left: 'small', right: 'small' }} >
+                <Box >
                     <Box fill align="baseline" overflow="hidden">
                         <Heading>{playlist.name}
                             <Button
@@ -109,7 +109,7 @@ class Playlist extends React.Component {
                         </Heading>
                     </Box>
                 </Box>
-                {playlist.description.length > 0 && (<Text margin="small" color="accent-1">{playlist.description}</Text>)}
+                {playlist.description.length > 0 && (<Text color="accent-1">{playlist.description}</Text>)}
                 <Box border={{ color: 'dark-2', size: 'small', side: 'bottom' }} />
                 <Tracks playlist={playlist} playlistId={match.params.id} />
             </Box >

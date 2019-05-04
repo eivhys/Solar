@@ -18,7 +18,7 @@ function Layout(props) {
         <Grommet theme={grommet} full style={{ overflowX: 'hidden' }}>
             <Grid fill rows={["auto", "flex", "auto"]}>
                 <Box>
-                    <Box tag="header" background="dark-1" pad="small" style={{ borderBottom: '1px solid #6FFFB0', display: 'list-item' }}>
+                    <Box tag="header" background="dark-1" pad="small" style={{ borderBottom: '1px solid var(--accent-1)', display: 'list-item' }}>
                         <img style={{ width: 20, float: 'left' }} src={logo} alt="" />
                         <DropButton
                             style={{ padding: 0, float: 'right' }}
@@ -30,7 +30,7 @@ function Layout(props) {
                             </Box>} />
                     </Box>
                 </Box>
-                <Box direction="row">
+                <Box direction="row" style={{ backgroundColor: '#444' }}>
                     <Resizable
                         style={{ backgroundColor: '#333', overflowX: 'hidden' }}
                         enable={{ top: false, right: false, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
@@ -48,7 +48,7 @@ function Layout(props) {
                             </Box>
                         </Box>
                     </Resizable>
-                    <Box overflow="hidden" fill background="dark-1" style={{ backgroundColor: '#444' }} >
+                    <Box overflow="hidden" fill margin="small" background="dark-1" style={{ backgroundColor: '#444' }} >
                         {props.children}
                     </Box>
                 </Box>

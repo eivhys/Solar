@@ -44,7 +44,6 @@ function Playlists({ playlists, dispatch, music }) {
         </Box >
     }
 
-
     return (
         <Box fill="vertical">
             <Box fill>
@@ -64,7 +63,7 @@ function Playlists({ playlists, dispatch, music }) {
                                 }}
                                 style={
                                     music.playlist.id === playlists[key].id ? {
-                                        borderLeft: "5px #6FFFB0 solid"
+                                        borderLeft: "5px var(--accent-1) solid"
                                     } : {
                                         }
                                 }>

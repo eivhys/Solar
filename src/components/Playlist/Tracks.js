@@ -17,7 +17,7 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
     const tracks = playlist.tracks
 
     if (tracks === undefined || tracks.length === 0) {
-        return <Text style={{ marginLeft: 24, display: '-webkit-box' }}><br />No tracks in playlist...</Text >
+        return <Text style={{ display: '-webkit-box' }}><br />No tracks in playlist...</Text >
     }
 
     return (
@@ -28,7 +28,7 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
                         <Box className="track" key={tracks[key].ytId} style={
                             music.playlist.id === playlist.id && tracks[key].ytId === music.currentTrack.ytId ? {
                                 backgroundColor: '#555',
-                                borderLeft: "5px #6FFFB0 solid"
+                                borderLeft: "5px var(--accent-1) solid"
                             } : {}
                         } onDoubleClick={() => {
                             dispatch(newTrack(findWithAttr(tracks, "ytId", tracks[key].ytId), tracks[key], playlist))
@@ -39,7 +39,7 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
                                     {stars ?
                                         <Icon style={{ padding: "15px 10px 0px 10px" }} type="star" theme={tracks[key].favourite ? "filled" : "outlined"} onClick={() => addFavourite(tracks[key], playlist)} />
                                         : <Box style={{ width: 25 }} />}
-                                    <Text size="large" margin={{ top: '8px' }}>{tracks[key].title}</Text>
+                                    <Text size="large" margin={{ top: '8px' }} className="truncate">{tracks[key].title}</Text>
                                 </Box>
                                 <Box direction="row" >
                                     {options && <Menu

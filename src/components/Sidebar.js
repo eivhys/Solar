@@ -9,9 +9,9 @@ import history from './helpers/history'
 import { setPlaylist, firstPlay } from "../store/actions/musicActions";
 import { Box, Text } from 'grommet';
 
-function Playlists({ playlists, dispatch, music }) {
+function SideBar({ playlists, dispatch, music }) {
 
-    const menuItems = ["Search", "Home", "Trending", "Favourites"]
+    const menuItems = ["Search", "Chart", "Favourites"]
 
     const menuButtons = <Box>{Object.keys(menuItems).map(
         (key, id) => (
@@ -26,6 +26,7 @@ function Playlists({ playlists, dispatch, music }) {
         )
     )
     }</Box >
+
 
     if (!isLoaded(playlists)) {
         return <Box alignContent="center" margin="medium">
@@ -94,4 +95,4 @@ export default compose(
         dispatch: state.dispatch,
         music: state.music
     }))
-)(Playlists)
+)(SideBar)

@@ -4,7 +4,7 @@ import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase/'
 import Tracks from '../components/Playlist/Tracks'
 import firebase from 'firebase'
-import { Button, DropButton, Box, Form, FormField, Heading, Menu, Text } from 'grommet'
+import { Button, DropButton, Box, Form, FormField, Heading, Menu, Text, ResponsiveContext } from 'grommet'
 import { Play, Add, LinkPrevious, Home, More } from 'grommet-icons'
 import { isLoaded, isEmpty } from 'react-redux-firebase/lib/helpers'
 import { firstPlay, setPlaylist, } from '../store/actions/musicActions';
@@ -70,46 +70,95 @@ class Playlist extends React.Component {
             <Box full>
                 <Box >
                     <Box fill align="baseline" overflow="hidden">
-                        <Heading>{playlist.name}
-                            <Button
-                                margin={buttonMargin}
-                                icon={<Play />}
-                                label={"Play"}
-                                onClick={() => {
-                                    dispatch(setPlaylist(playlist.id))
-                                    dispatch(firstPlay(playlist))
-                                }}
-                            />
-                            <DropButton
-                                margin={buttonMargin}
-                                style={{ marginBottom: 5 }}
-                                icon={<Add />}
-                                label="Add track"
-                                dropAlign={{ top: 'bottom', right: 'right' }}
-                                dropContent={
-                                    <Box alignSelf="center" pad="large" width="medium" background="light-1">
-                                        <Form onSubmit={() => addTrack(this.state.youtubeLink, playlist)}>
-                                            <Heading>New track</Heading>
-                                            <FormField name="name" placeholder="Youtube link" onChange={e => this.setState({ youtubeLink: e.target.value })} />
-                                            <Button disabled={!youtubeRegex().test(this.state.youtubeLink)} type="submit" color="accent-1" label="Add" />
-                                        </Form>
-                                    </Box>
-                                }
-                            />
-                            <Menu
-                                label="More"
-                                margin={{ ...buttonMargin }}
-                                icon={<More />}
-                                dropAlign={{ top: 'bottom', right: 'right' }}
-                                items={[
-                                    { label: 'Share Playlist', onClick: () => { }, disabled: true },
-                                    { label: 'Remove', onClick: () => removePlaylist(match.params.id) },
-                                ]}
-                            />
-                        </Heading>
+                        <ResponsiveContext.Consumer>
+                            {
+                                (size) => size !== "small" ? (
+                                    <Heading>{playlist.name}
+                                        <Button
+                                            margin={buttonMargin}
+                                            icon={<Play />}
+                                            label={"Play"}
+                                            onClick={() => {
+                                                dispatch(setPlaylist(playlist.id))
+                                                dispatch(firstPlay(playlist))
+                                            }}
+                                        />
+                                        <DropButton
+                                            margin={buttonMargin}
+                                            style={{ marginBottom: 5 }}
+                                            icon={<Add />}
+                                            label="Add track"
+                                            dropAlign={{ top: 'bottom', right: 'right' }}
+                                            dropContent={
+                                                <Box alignSelf="center" pad="large" width="medium" background="light-1">
+                                                    <Form onSubmit={() => addTrack(this.state.youtubeLink, playlist)}>
+                                                        <Heading>New track</Heading>
+                                                        <FormField name="name" placeholder="Youtube link" onChange={e => this.setState({ youtubeLink: e.target.value })} />
+                                                        <Button disabled={!youtubeRegex().test(this.state.youtubeLink)} type="submit" color="accent-1" label="Add" />
+                                                    </Form>
+                                                </Box>
+                                            }
+                                        />
+                                        <Menu
+                                            label="More"
+                                            margin={{ ...buttonMargin }}
+                                            icon={<More />}
+                                            dropAlign={{ top: 'bottom', right: 'right' }}
+                                            items={[
+                                                { label: 'Share Playlist', onClick: () => { }, disabled: true },
+                                                { label: 'Remove', onClick: () => removePlaylist(match.params.id) },
+                                            ]}
+                                        />
+                                    </Heading>
+                                ) :
+                                    (
+                                        <Box fill >
+                                            <Heading
+                                                alignSelf="center"
+                                                className="truncate">{playlist.name}
+                                            </Heading>
+                                            <Button
+                                                icon={<Play />}
+                                                label={"Play"}
+                                                style={{ marginBottom: 5 }}
+                                                onClick={() => {
+                                                    dispatch(setPlaylist(playlist.id))
+                                                    dispatch(firstPlay(playlist))
+                                                }}
+                                            />
+                                            <DropButton
+                                                style={{ marginBottom: 5 }}
+                                                icon={<Add />}
+                                                label="Add track"
+                                                dropAlign={{ top: 'bottom', right: 'right' }}
+                                                dropContent={
+                                                    <Box alignSelf="center" pad="large" width="medium" background="light-1">
+                                                        <Form onSubmit={() => addTrack(this.state.youtubeLink, playlist)}>
+                                                            <Heading>New track</Heading>
+                                                            <FormField name="name" placeholder="Youtube link" onChange={e => this.setState({ youtubeLink: e.target.value })} />
+                                                            <Button disabled={!youtubeRegex().test(this.state.youtubeLink)} type="submit" color="accent-1" label="Add" />
+                                                        </Form>
+                                                    </Box>
+                                                }
+                                            />
+                                            <Menu
+                                                label="More"
+                                                icon={<More />}
+                                                dropAlign={{ top: 'bottom', right: 'right' }}
+                                                items={[
+                                                    { label: 'Share Playlist', onClick: () => { }, disabled: true },
+                                                    { label: 'Remove', onClick: () => removePlaylist(match.params.id) },
+                                                ]}
+                                            />
+                                        </Box>
+                                    )
+                            }
+                        </ResponsiveContext.Consumer>
                     </Box>
                 </Box>
-                {playlist.description.length > 0 && (<Text color="accent-1">{playlist.description}</Text>)}
+                <ResponsiveContext.Consumer>
+                    {(size) => size !== "small" && playlist.description.length > 0 && (<Text color="accent-1">{playlist.description}</Text>)}
+                </ResponsiveContext.Consumer>
                 <Box border={{ color: 'dark-2', size: 'small', side: 'bottom' }} />
                 <Tracks playlist={playlist} playlistId={match.params.id} />
             </Box >

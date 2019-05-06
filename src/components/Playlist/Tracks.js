@@ -9,6 +9,7 @@ import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase/'
 import { More } from 'grommet-icons';
 import { addFavourite } from '../helpers/firebaseActions'
+import { isMobile } from 'react-device-detect'
 
 function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
 
@@ -21,7 +22,7 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
     }
 
     return (
-        <Box className="trackList" >
+        <Box className="trackList" style={{ display: 'block' }} >
             {
                 Object.keys(tracks).map(
                     (key, id) => (
@@ -31,9 +32,13 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
                                 borderLeft: "5px var(--accent-1) solid"
                             } : {}
                         } onDoubleClick={() => {
-                            dispatch(newTrack(findWithAttr(tracks, "ytId", tracks[key].ytId), tracks[key], playlist))
+                            !isMobile && dispatch(newTrack(findWithAttr(tracks, "ytId", tracks[key].ytId), tracks[key], playlist))
                         }
-                        } >
+                        }
+
+                            onClick={() => {
+                                isMobile && dispatch(newTrack(findWithAttr(tracks, "ytId", tracks[key].ytId), tracks[key], playlist))
+                            }}>
                             <Box fill="horizontal" direction="row" alignContent="between" overflow="hidden" >
                                 <Box fill="horizontal" direction="row">
                                     {stars ?

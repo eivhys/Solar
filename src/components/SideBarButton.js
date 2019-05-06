@@ -44,8 +44,6 @@ function SideBar({ playlists }) {
     return (
         <Menu
             icon={<MenuIcon />}
-            style={{ padding: 0, float: 'left' }}
-            dropAlign={{ top: 'bottom', left: 'left' }}
             items={[...menuButtonItems, ...playlists].map(
                 (item) => (
                     {

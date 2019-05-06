@@ -112,7 +112,7 @@ class Playlist extends React.Component {
                                     </Heading>
                                 ) :
                                     (
-                                        <Box fill >
+                                        <Box fill align="center" alignContent="center">
                                             <Heading
                                                 alignSelf="center"
                                                 className="truncate">{playlist.name}
@@ -142,7 +142,7 @@ class Playlist extends React.Component {
                                                 }
                                             />
                                             <Menu
-                                                label="More"
+                                                alignSelf="center"
                                                 icon={<More />}
                                                 dropAlign={{ top: 'bottom', right: 'right' }}
                                                 items={[

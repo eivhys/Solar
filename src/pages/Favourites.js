@@ -89,13 +89,16 @@ class Playlist extends React.Component {
                                         />
                                     </Heading>
                                     :
-                                    <Box align="center" fill>
-                                        <Heading align="center">Favourites
-                                    </Heading>
-                                        <Button align="center"
+                                    <Box fill align="center" alignContent="center">
+                                        <Heading
+                                            alignSelf="center"
+                                            className="truncate">{favourites.name}
+                                        </Heading>
+                                        <Button
                                             icon={<Play />}
-                                            color="brand"
                                             label={"Play"}
+                                            color="brand"
+                                            style={{ marginBottom: 5 }}
                                             onClick={() => {
                                                 this.props.dispatch(setPlaylist(favourites.id))
                                                 this.props.dispatch(firstPlay(favourites))
@@ -126,7 +129,7 @@ export default compose(
                 ]
             }
         ]
-    }), // or { collection: 'todos' }
+    }), // or {collection: 'todos' }
     connect((state) => ({
         playlists: state.firestore.ordered.playlists,
         music: state.music,

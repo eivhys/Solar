@@ -62,8 +62,6 @@ function Layout(props) {
                                             width: 400
                                         }}
                                         maxWidth={500}
-                                    //maxHeight='100%'
-                                    //minHeight='100%'
                                     >
                                         <Box width='large' background="dark-1" >
                                             <Box fill>
@@ -97,12 +95,12 @@ function Layout(props) {
 
                                     </Box>
                                 </Box>
-                                <Box direction="row" overflow={{ vertical: "scroll" }} fill elevation="0" style={{ backgroundColor: '#444' }}>
+                                <Box direction="row" fill elevation="0" style={{ backgroundColor: '#444' }}>
                                     <Box margin="small" background="dark-1" style={{ backgroundColor: '#444', display: 'block' }} >
                                         {props.children}
                                     </Box>
                                 </Box>
-                                <Box tag="footer" elevation="9999" background="dark-1" style={{ borderTop: '1px solid #444' }}>
+                                <Box tag="footer" pad="small" elevation="9999" background="dark-1" style={{ borderTop: '1px solid #444' }}>
                                     <MusicControlMobile />
                                 </Box>
                             </Grid>

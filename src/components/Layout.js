@@ -19,7 +19,7 @@ const capitalizeName = (s) => {
 function Layout(props) {
 
     return (
-        <Grommet theme={grommet} full style={{ overflowX: 'hidden' }}>
+        <Grommet theme={grommet} full style={{ overflowX: 'hidden', backgroundColor: '#444' }}>
             <ThemeContext.Extend
                 value={{
                     global: {
@@ -69,8 +69,8 @@ function Layout(props) {
                                             </Box>
                                         </Box>
                                     </Resizable>
-                                    <Box overflow={{ vertical: "scroll" }} fill background="dark-1" style={{ backgroundColor: '#444' }} >
-                                        <Box margin="small" style={{ display: 'block' }}>{props.children}</Box>
+                                    <Box overflow={{ vertical: "scroll" }} fill background="dark-1" style={{ display: 'list-item', backgroundColor: '#444' }} >
+                                        <Box margin="small" >{props.children}</Box>
                                     </Box>
                                 </Box>
                                 <Box tag="footer" pad="small" background="dark-1" style={{ borderTop: '1px solid #444' }}>
@@ -80,7 +80,7 @@ function Layout(props) {
                             :
                             <Grid fill rows={["xxsmall", "auto", "auto"]}>
                                 <Box>
-                                    <Box tag="header" background="dark-1" pad="small" fill="horizontal" style={{ position: 'fixed', top: 0, borderBottom: '1px solid var(--brand)', display: 'list-item' }}>
+                                    <Box tag="header" background="dark-1" pad="small" fill="horizontal" style={{ zIndex: 999999, position: 'fixed', top: 0, borderBottom: '1px solid var(--brand)', display: 'list-item' }}>
                                         <SideBarButton style={{ padding: 0 }} />
 
                                         <DropButton
@@ -96,7 +96,7 @@ function Layout(props) {
                                     </Box>
                                 </Box>
                                 <Box direction="row" fill style={{ backgroundColor: '#444' }}>
-                                    <Box margin="small" background="dark-1" style={{ backgroundColor: '#444', display: 'block' }} >
+                                    <Box pad="small" fill background="dark-1" style={{ backgroundColor: '#444', display: 'block', marginBottom: 75 /*ControlBar offset*/ }} >
                                         {props.children}
                                     </Box>
                                 </Box>

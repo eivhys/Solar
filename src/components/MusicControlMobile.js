@@ -45,7 +45,7 @@ class Playlist extends React.Component {
         const addPlaylist = (<DropButton
             icon={<Add />}
             label=""
-            dropAlign={{ bottom: 'bottom', left: 'left' }}
+            dropAlign={{ bottom: 'top', left: 'left' }}
             dropContent={
                 <Box elevation="xlarge" alignSelf="center" pad="large" width="medium" background="dark-2" border="small">
                     <Tabs>

@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { Button, RangeInput, DropButton, Box, Form, FormField, Heading, Text, Keyboard, Tabs, Tab } from 'grommet'
-import { Play, ChapterNext, ChapterPrevious, PowerReset, Network, Pause, VolumeMute, Volume, Add } from 'grommet-icons'
-import { progress, togglePlay, muteVolume, changeVolume, shuffle, prevTrack, nextTrack, repeat } from '../store/actions/musicActions';
+import { Button, RangeInput, DropButton, Box, Form, FormField, Heading, Text, Tabs, Tab } from 'grommet'
+import { Play, ChapterNext, ChapterPrevious, PowerReset, Network, Pause, Add } from 'grommet-icons'
+import { progress, togglePlay, shuffle, prevTrack, nextTrack, repeat } from '../store/actions/musicActions';
 import ReactPlayer from 'react-player'
 import { firestoreConnect } from 'react-redux-firebase/'
 import { isLoaded, isEmpty } from 'react-redux-firebase/lib/helpers'
@@ -164,7 +164,7 @@ class Playlist extends React.Component {
                         icon={<ChapterPrevious />}
                         align="stretch"
                         disabled={disabled || (currentTrack === 0 && (!music.repeat && !music.shuffle))}
-                        onClick={(e) => {
+                        onClick={() => {
                             dispatch(prevTrack(tracks))
                             this.player.seekTo(0)
                         }
@@ -180,7 +180,7 @@ class Playlist extends React.Component {
                         icon={<ChapterNext />}
                         align="stretch"
                         disabled={nextDisabled}
-                        onClick={(e) => {
+                        onClick={() => {
                             dispatch(nextTrack())
                             this.player.seekTo(0)
                         }
@@ -264,7 +264,7 @@ export default compose(
             }
         ]
     }), // or { collection: 'todos' }
-    connect((state, props) => ({
+    connect((state) => ({
         playlists: state.firestore.ordered.playlists,
         dispatch: state.dispatch,
         music: state.music

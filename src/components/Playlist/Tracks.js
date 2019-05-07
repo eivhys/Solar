@@ -48,7 +48,7 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
                                 <Box direction="row" >
                                     {options && <Menu
                                         icon={<More />}
-                                        style={{ float: 'right' }}
+                                        style={{ float: 'right', padding: 5 }}
                                         dropAlign={{ top: 'bottom', right: 'right' }}
                                         items={[
                                             { label: 'Queue', onClick: () => dispatch(queueTrack(tracks[key])) },

@@ -13,8 +13,15 @@ body {
   user-select: none; /* Standard */
   -webkit-user-drag: none; /* Prevents dragging of images/divs etc */
   user-drag: none;
-  --accent-1: #6FFFB0;
+  --brand: rgb(255, 255, 0);
+  outline: none;
 }
+
+
+
+.grommetux-background-color-index-brand{
+  background: var(--brand);
+  }
 
 .App {
   height: 100%;
@@ -46,7 +53,7 @@ body {
 
 .sidebarItem:hover {
   background-color: #444;
-  border-right:  1px solid var(--accent-1);
+  border-right:  1px solid var(--brand);
   transition: all 150ms ease;
 }
 
@@ -64,8 +71,8 @@ body {
 }
 
 .track:hover {
-  border-top: var(--accent-1) solid 1px;
-  border-bottom: var(--accent-1) solid 1px;
+  border-top: var(--brand) solid 1px;
+  border-bottom: var(--brand) solid 1px;
   transition: all 150ms ease;
   cursor: pointer;
 }

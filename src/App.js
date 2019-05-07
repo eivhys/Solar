@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import './App.css'
 import Layout from './components/Layout'
 import { Router, Switch, Route } from 'react-router-dom'
 import history from "./components/helpers/history"
@@ -10,6 +9,7 @@ import { Box, Heading, Button } from 'grommet'
 import Favourites from './pages/Favourites'
 import Home from './pages/Home'
 import { Google } from 'grommet-icons';
+import './App.css'
 
 class App extends Component {
 
@@ -62,7 +62,7 @@ class App extends Component {
           >
             <Box
               alignSelf="center"
-              border={{ color: 'accent-1', size: 'none' }}
+              border={{ color: 'brand', size: 'none' }}
               pad="medium"
               style={{ width: '300px', marginTop: '30vh' }}
               alignContent="center"

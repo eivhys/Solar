@@ -29,7 +29,7 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
                         <Box className="track" key={tracks[key].ytId} style={
                             music.playlist.id === playlist.id && tracks[key].ytId === music.currentTrack.ytId ? {
                                 backgroundColor: '#555',
-                                borderLeft: "5px var(--accent-1) solid"
+                                borderLeft: "5px var(--brand) solid"
                             } : {}
                         } onDoubleClick={() => {
                             !isMobile && dispatch(newTrack(findWithAttr(tracks, "ytId", tracks[key].ytId), tracks[key], playlist))

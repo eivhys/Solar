@@ -40,7 +40,7 @@ function SideBar({ playlists, dispatch, music }) {
             <Box fill="vertical" margin="medium" >
                 <Text>No playlists found</Text>
                 <p>Create one with the <b>+</b> button</p>
-                <LinkDown style={{ bottom: 15, position: "absolute" }} color="accent-1" />
+                <LinkDown style={{ bottom: 15, position: "absolute" }} color="brand" />
             </Box>
         </Box >
     }
@@ -64,7 +64,7 @@ function SideBar({ playlists, dispatch, music }) {
                                 }}
                                 style={
                                     music.playlist.id === playlists[key].id ? {
-                                        borderLeft: "5px var(--accent-1) solid"
+                                        borderLeft: "5px var(--brand) solid"
                                     } : {
                                         }
                                 }>

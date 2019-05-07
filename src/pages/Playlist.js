@@ -78,6 +78,7 @@ class Playlist extends React.Component {
                                             margin={buttonMargin}
                                             icon={<Play />}
                                             label={"Play"}
+                                            color="brand"
                                             onClick={() => {
                                                 dispatch(setPlaylist(playlist.id))
                                                 dispatch(firstPlay(playlist))
@@ -85,6 +86,7 @@ class Playlist extends React.Component {
                                         />
                                         <DropButton
                                             margin={buttonMargin}
+                                            color="brand"
                                             style={{ marginBottom: 5 }}
                                             icon={<Add />}
                                             label="Add track"
@@ -94,7 +96,7 @@ class Playlist extends React.Component {
                                                     <Form onSubmit={() => addTrack(this.state.youtubeLink, playlist)}>
                                                         <Heading>New track</Heading>
                                                         <FormField name="name" placeholder="Youtube link" onChange={e => this.setState({ youtubeLink: e.target.value })} />
-                                                        <Button disabled={!youtubeRegex().test(this.state.youtubeLink)} type="submit" color="accent-1" label="Add" />
+                                                        <Button disabled={!youtubeRegex().test(this.state.youtubeLink)} type="submit" color="brand" label="Add" />
                                                     </Form>
                                                 </Box>
                                             }
@@ -136,7 +138,7 @@ class Playlist extends React.Component {
                                                         <Form onSubmit={() => addTrack(this.state.youtubeLink, playlist)}>
                                                             <Heading>New track</Heading>
                                                             <FormField name="name" placeholder="Youtube link" onChange={e => this.setState({ youtubeLink: e.target.value })} />
-                                                            <Button disabled={!youtubeRegex().test(this.state.youtubeLink)} type="submit" color="accent-1" label="Add" />
+                                                            <Button disabled={!youtubeRegex().test(this.state.youtubeLink)} type="submit" color="brand" label="Add" />
                                                         </Form>
                                                     </Box>
                                                 }
@@ -157,7 +159,7 @@ class Playlist extends React.Component {
                     </Box>
                 </Box>
                 <ResponsiveContext.Consumer>
-                    {(size) => size !== "small" && playlist.description.length > 0 && (<Text color="accent-1" className="truncate">{playlist.description}</Text>)}
+                    {(size) => size !== "small" && playlist.description.length > 0 && (<Text color="brand" className="truncate">{playlist.description}</Text>)}
                 </ResponsiveContext.Consumer>
                 <Box border={{ color: 'dark-2', size: 'small', side: 'bottom' }} />
                 <Tracks playlist={playlist} playlistId={match.params.id} />

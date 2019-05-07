@@ -24,7 +24,7 @@ function FavouriteTracks({ playlist, stars = true, options = true, music, dispat
                         <Box className="track" key={tracks[key].ytId} style={
                             music.playlist.id === playlist.id && tracks[key].ytId === music.currentTrack.ytId ? {
                                 backgroundColor: '#555',
-                                borderLeft: "5px var(--accent-1) solid"
+                                borderLeft: "5px var(--brand) solid"
                             } : {}
                         } onDoubleClick={() => {
                             dispatch(newTrack(findWithAttr(tracks, "ytId", tracks[key].ytId), tracks[key], playlist))

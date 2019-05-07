@@ -77,6 +77,7 @@ class Playlist extends React.Component {
                             <Button
                                 margin={buttonMargin}
                                 icon={<Play />}
+                                color="brand"
                                 label={"Play"}
                                 onClick={() => {
                                     this.props.dispatch(setPlaylist(favourites.id))

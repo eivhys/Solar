@@ -78,9 +78,9 @@ function Layout(props) {
                                 </Box>
                             </Grid>
                             :
-                            <Grid fill rows={["auto", "flex", "auto"]}>
+                            <Grid fill rows={["xxsmall", "auto", "auto"]}>
                                 <Box>
-                                    <Box tag="header" background="dark-1" pad="small" style={{ borderBottom: '1px solid var(--brand)', display: 'list-item' }}>
+                                    <Box tag="header" background="dark-1" pad="small" fill="horizontal" style={{ position: 'fixed', top: 0, borderBottom: '1px solid var(--brand)', display: 'list-item' }}>
                                         <SideBarButton style={{ padding: 0 }} />
 
                                         <DropButton
@@ -95,12 +95,12 @@ function Layout(props) {
 
                                     </Box>
                                 </Box>
-                                <Box direction="row" fill elevation="0" style={{ backgroundColor: '#444' }}>
+                                <Box direction="row" fill style={{ backgroundColor: '#444' }}>
                                     <Box margin="small" background="dark-1" style={{ backgroundColor: '#444', display: 'block' }} >
                                         {props.children}
                                     </Box>
                                 </Box>
-                                <Box tag="footer" pad="small" elevation="9999" background="dark-1" style={{ borderTop: '1px solid #444' }}>
+                                <Box pad="small" background="dark-1" fill="horizontal" style={{ position: 'fixed', bottom: 0, borderTop: '1px solid #444' }} tag="footer">
                                     <MusicControlMobile />
                                 </Box>
                             </Grid>

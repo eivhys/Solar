@@ -69,7 +69,7 @@ class Playlist extends React.Component {
         return (
             <Box full>
                 <Box >
-                    <Box fill align="baseline" overflow="hidden">
+                    <Box fill align="baseline" >
                         <ResponsiveContext.Consumer>
                             {
                                 (size) => size !== "small" ? (
@@ -92,7 +92,7 @@ class Playlist extends React.Component {
                                             label="Add track"
                                             dropAlign={{ top: 'bottom', right: 'right' }}
                                             dropContent={
-                                                <Box alignSelf="center" pad="large" width="medium" background="light-1">
+                                                <Box alignSelf="center" pad="large" width="medium" background="dark-2">
                                                     <Form onSubmit={() => addTrack(this.state.youtubeLink, playlist)}>
                                                         <Heading>New track</Heading>
                                                         <FormField name="name" placeholder="Youtube link" onChange={e => this.setState({ youtubeLink: e.target.value })} />
@@ -135,7 +135,7 @@ class Playlist extends React.Component {
                                                 icon={<Add />}
                                                 label="Add track"
                                                 dropContent={
-                                                    <Box alignSelf="center" pad="large" width="medium" background="light-1">
+                                                    <Box alignSelf="center" pad="large" width="medium" background="dark-2">
                                                         <Form onSubmit={() => addTrack(this.state.youtubeLink, playlist)}>
                                                             <Heading>New track</Heading>
                                                             <FormField name="name" placeholder="Youtube link" onChange={e => this.setState({ youtubeLink: e.target.value })} />

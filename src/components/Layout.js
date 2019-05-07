@@ -42,15 +42,15 @@ function Layout(props) {
                                 <Box>
                                     <Box tag="header" background="dark-1" pad="small" style={{ borderBottom: '1px solid var(--brand)', display: 'list-item' }}>
                                         <img style={{ width: 20, padding: 0, float: 'left' }} src={logo} alt="" />
-                                        
+
                                         <DropButton
-                                        style={{ padding: 0, float: 'right' }}
-                                        icon={<User />}
-                                        dropAlign={{ top: 'bottom', right: 'right' }}
-                                        dropContent={<Box pad="large" border="small" background="dark-2">
-                                            <Heading style={{ float: 'right', marginRight: 10, marginTop: 2 }}>{capitalizeName(firebase.auth().currentUser.displayName)}</Heading>
-                                            <Button color="brand" label="Sign out" onClick={() => firebase.auth().signOut()} />
-                                        </Box>} />
+                                            style={{ padding: 0, float: 'right' }}
+                                            icon={<User />}
+                                            dropAlign={{ top: 'bottom', right: 'right' }}
+                                            dropContent={<Box pad="large" border="small" background="dark-2">
+                                                <Heading style={{ float: 'right', marginRight: 10, marginTop: 2 }}>{capitalizeName(firebase.auth().currentUser.displayName)}</Heading>
+                                                <Button color="brand" label="Sign out" onClick={() => firebase.auth().signOut()} />
+                                            </Box>} />
                                     </Box>
                                 </Box>
                                 <Box direction="row" style={{ backgroundColor: '#444' }}>
@@ -71,8 +71,8 @@ function Layout(props) {
                                             </Box>
                                         </Box>
                                     </Resizable>
-                                    <Box overflow="hidden" fill margin="small" background="dark-1" style={{ backgroundColor: '#444' }} >
-                                        {props.children}
+                                    <Box overflow={{ vertical: "scroll" }} fill background="dark-1" style={{ backgroundColor: '#444' }} >
+                                        <Box margin="small" style={{ display: 'block' }}>{props.children}</Box>
                                     </Box>
                                 </Box>
                                 <Box tag="footer" pad="small" background="dark-1" style={{ borderTop: '1px solid #444' }}>
@@ -83,8 +83,9 @@ function Layout(props) {
                             <Grid fill rows={["auto", "flex", "auto"]}>
                                 <Box>
                                     <Box tag="header" background="dark-1" pad="small" style={{ borderBottom: '1px solid var(--brand)', display: 'list-item' }}>
-                                        <SideBarButton style={{ padding: 0 }} />      
-                                            <DropButton
+                                        <SideBarButton style={{ padding: 0 }} />
+
+                                        <DropButton
                                             style={{ padding: 5, float: 'right' }}
                                             icon={<User />}
                                             dropAlign={{ top: 'bottom', right: 'right' }}
@@ -96,12 +97,12 @@ function Layout(props) {
 
                                     </Box>
                                 </Box>
-                                <Box direction="row" style={{ backgroundColor: '#444' }}>
-                                    <Box overflow="hidden" fill margin="small" background="dark-1" style={{ backgroundColor: '#444' }} >
+                                <Box direction="row" overflow={{ vertical: "scroll" }} fill elevation="0" style={{ backgroundColor: '#444' }}>
+                                    <Box margin="small" background="dark-1" style={{ backgroundColor: '#444', display: 'block' }} >
                                         {props.children}
                                     </Box>
                                 </Box>
-                                <Box tag="footer" pad="small" background="dark-1" style={{ borderTop: '1px solid #444' }}>
+                                <Box tag="footer" elevation="9999" background="dark-1" style={{ borderTop: '1px solid #444' }}>
                                     <MusicControlMobile />
                                 </Box>
                             </Grid>

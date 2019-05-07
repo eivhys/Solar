@@ -4,7 +4,7 @@ import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase/'
 import FavouriteTracks from '../components/Playlist/FavouriteTracks'
 import firebase from 'firebase'
-import { Button, Box, Heading } from 'grommet'
+import { Button, Box, Heading, ResponsiveContext } from 'grommet'
 import { LinkPrevious, Home, Play } from 'grommet-icons'
 import { isLoaded, isEmpty } from 'react-redux-firebase/lib/helpers'
 import { setPlaylist, firstPlay } from "../store/actions/musicActions";
@@ -73,21 +73,41 @@ class Playlist extends React.Component {
             <Box fill>
                 <Box margin={{ left: 'small', right: 'small' }} >
                     <Box fill align="baseline" overflow="hidden">
-                        <Heading>Favourites
-                            <Button
-                                margin={buttonMargin}
-                                icon={<Play />}
-                                color="brand"
-                                label={"Play"}
-                                onClick={() => {
-                                    this.props.dispatch(setPlaylist(favourites.id))
-                                    this.props.dispatch(firstPlay(favourites))
-                                }}
-                            />
-                        </Heading>
+                        <ResponsiveContext.Consumer>
+                            {
+                                (size) => size !== "small" ?
+                                    <Heading>Favourites
+                                        <Button
+                                            margin={buttonMargin}
+                                            icon={<Play />}
+                                            color="brand"
+                                            label={"Play"}
+                                            onClick={() => {
+                                                this.props.dispatch(setPlaylist(favourites.id))
+                                                this.props.dispatch(firstPlay(favourites))
+                                            }}
+                                        />
+                                    </Heading>
+                                    :
+                                    <Box align="center" fill>
+                                        <Heading align="center">Favourites
+                                    </Heading>
+                                        <Button align="center"
+                                            icon={<Play />}
+                                            color="brand"
+                                            label={"Play"}
+                                            onClick={() => {
+                                                this.props.dispatch(setPlaylist(favourites.id))
+                                                this.props.dispatch(firstPlay(favourites))
+                                            }}
+                                        />
+                                    </Box>
+                            }
+
+                        </ResponsiveContext.Consumer>
                     </Box>
                 </Box>
-                <Box style={{ width: '100%', borderBottom: '1px solid #555' }} />
+                <Box style={{ marginTop: 10, width: '100%', borderBottom: '1px solid #555' }} />
                 <FavouriteTracks playlist={favourites} playlistId={'favourites'} stars={false} options={false} />
             </Box>
         )

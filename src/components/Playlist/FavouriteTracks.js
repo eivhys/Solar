@@ -17,7 +17,7 @@ function FavouriteTracks({ playlist, stars = true, options = true, music, dispat
     }
 
     return (
-        <Box className="trackList" >
+        <Box className="trackList" animation={{ type: "fadeIn", duration: 250 }} >
             {
                 Object.keys(tracks).map(
                     (key, id) => (
@@ -32,8 +32,7 @@ function FavouriteTracks({ playlist, stars = true, options = true, music, dispat
                         } >
                             <Box fill="horizontal" direction="row" alignContent="between" overflow="hidden" >
                                 <Box direction="row" fill="horizontal">
-                                    <Box style={{ width: 25, heigth: 15 }} />
-                                    <Text size="large" margin={{ top: '8px' }}>{tracks[key].title}</Text>
+                                    <Text size="large" className="truncate" margin={{ top: '8px' }}>{tracks[key].title}</Text>
                                 </Box>
                                 <Box direction="row">
                                     <Menu

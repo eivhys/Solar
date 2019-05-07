@@ -22,11 +22,11 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
     }
 
     return (
-        <Box className="trackList" style={{ display: 'block' }} >
+        <Box className="trackList" >
             {
                 Object.keys(tracks).map(
                     (key, id) => (
-                        <Box className="track" key={tracks[key].ytId} style={
+                        <Box animation={{ type: "fadeIn", duration: 250 }} className="track" key={tracks[key].ytId} style={
                             music.playlist.id === playlist.id && tracks[key].ytId === music.currentTrack.ytId ? {
                                 backgroundColor: '#555',
                                 borderLeft: "5px var(--brand) solid"

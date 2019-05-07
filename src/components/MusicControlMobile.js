@@ -58,7 +58,7 @@ class Playlist extends React.Component {
                             </Form>
                         </Tab>
                         <Tab title="SubFeed" color="brand">
-                            <Heading style={{ fontSize: 46 }}>New SubFeed</Heading>
+                            <Heading >New SubFeed</Heading>
                             <Form onSubmit={this.addPlaylist}>
                                 <FormField name="name" label="Name" required={true} />
                                 <FormField name="description" label="Description" placeholder="Optional" />

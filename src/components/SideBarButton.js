@@ -37,6 +37,7 @@ function SideBar({ playlists }) {
                 icon={<MenuIcon />}
                 style={{ padding: 0, float: 'left' }}
                 dropAlign={{ top: 'bottom', right: 'left' }}
+                
                 items={[{ label: "Empty" }]}
             />)
     }

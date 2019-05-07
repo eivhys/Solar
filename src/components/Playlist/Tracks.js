@@ -48,6 +48,7 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
                                 <Box direction="row" >
                                     {options && <Menu
                                         icon={<More />}
+                                        dropBackground="dark-2"
                                         style={{ float: 'right', padding: 5 }}
                                         dropAlign={{ top: 'bottom', right: 'right' }}
                                         items={[

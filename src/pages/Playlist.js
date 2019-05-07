@@ -103,9 +103,9 @@ class Playlist extends React.Component {
                                         />
                                         <Menu
                                             label="More"
+                                            dropBackground="dark-2"
                                             margin={{ ...buttonMargin }}
                                             icon={<More />}
-                                            dropAlign={{ top: 'bottom', right: 'right' }}
                                             items={[
                                                 { label: 'Share Playlist', onClick: () => { }, disabled: true },
                                                 { label: 'Remove', onClick: () => removePlaylist(match.params.id) },
@@ -122,6 +122,7 @@ class Playlist extends React.Component {
                                             <Button
                                                 icon={<Play />}
                                                 label={"Play"}
+                                                color="brand"
                                                 style={{ marginBottom: 5 }}
                                                 onClick={() => {
                                                     dispatch(setPlaylist(playlist.id))
@@ -130,9 +131,9 @@ class Playlist extends React.Component {
                                             />
                                             <DropButton
                                                 style={{ marginBottom: 5 }}
+                                                color="brand"
                                                 icon={<Add />}
                                                 label="Add track"
-                                                dropAlign={{ top: 'bottom', right: 'right' }}
                                                 dropContent={
                                                     <Box alignSelf="center" pad="large" width="medium" background="light-1">
                                                         <Form onSubmit={() => addTrack(this.state.youtubeLink, playlist)}>
@@ -146,6 +147,7 @@ class Playlist extends React.Component {
                                             <Menu
                                                 alignSelf="center"
                                                 icon={<More />}
+                                                dropBackground="dark-2"
                                                 dropAlign={{ top: 'bottom', right: 'right' }}
                                                 items={[
                                                     { label: 'Share Playlist', onClick: () => { }, disabled: true },

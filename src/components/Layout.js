@@ -16,8 +16,8 @@ const capitalizeName = (s) => {
     return words.map(n => n.charAt(0).toUpperCase() + n.slice(1, n.length)).join(" ")
 }
 
-
 function Layout(props) {
+
     return (
         <Grommet theme={grommet} full style={{ overflowX: 'hidden' }}>
             <ThemeContext.Extend
@@ -42,14 +42,15 @@ function Layout(props) {
                                 <Box>
                                     <Box tag="header" background="dark-1" pad="small" style={{ borderBottom: '1px solid var(--brand)', display: 'list-item' }}>
                                         <img style={{ width: 20, padding: 0, float: 'left' }} src={logo} alt="" />
+                                        
                                         <DropButton
-                                            style={{ padding: 0, float: 'right' }}
-                                            icon={<User />}
-                                            dropAlign={{ top: 'bottom', right: 'right' }}
-                                            dropContent={<Box pad="large" background="light-2">
-                                                <Heading style={{ float: 'right', marginRight: 10, marginTop: 2 }}>{capitalizeName(firebase.auth().currentUser.displayName)}</Heading>
-                                                <Button color="brand" label="Sign out" onClick={() => firebase.auth().signOut()} />
-                                            </Box>} />
+                                        style={{ padding: 0, float: 'right' }}
+                                        icon={<User />}
+                                        dropAlign={{ top: 'bottom', right: 'right' }}
+                                        dropContent={<Box pad="large" border="small" background="dark-2">
+                                            <Heading style={{ float: 'right', marginRight: 10, marginTop: 2 }}>{capitalizeName(firebase.auth().currentUser.displayName)}</Heading>
+                                            <Button color="brand" label="Sign out" onClick={() => firebase.auth().signOut()} />
+                                        </Box>} />
                                     </Box>
                                 </Box>
                                 <Box direction="row" style={{ backgroundColor: '#444' }}>
@@ -82,15 +83,14 @@ function Layout(props) {
                             <Grid fill rows={["auto", "flex", "auto"]}>
                                 <Box>
                                     <Box tag="header" background="dark-1" pad="small" style={{ borderBottom: '1px solid var(--brand)', display: 'list-item' }}>
-                                        <SideBarButton style={{ padding: 0 }} />
-                                        <DropButton
-                                            style={{ padding: 0, paddingTop: 5, float: 'right' }}
+                                        <SideBarButton style={{ padding: 0 }} />      
+                                            <DropButton
+                                            style={{ padding: 5, float: 'right' }}
                                             icon={<User />}
                                             dropAlign={{ top: 'bottom', right: 'right' }}
-                                            dropContent={<Box pad="large" background="light-2">
+                                            dropContent={<Box pad="large" border="small" background="dark-2">
                                                 <Heading style={{ float: 'right', marginRight: 10, marginTop: 2 }}>{capitalizeName(firebase.auth().currentUser.displayName)}</Heading>
                                                 <Button color="brand" label="Sign out" onClick={() => firebase.auth().signOut()} />
-
                                             </Box>} />
                                         <img style={{ paddingTop: 5, width: 20, marginLeft: 'calc(50% - 40px)' }} src={logo} alt="" />
 

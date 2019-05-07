@@ -48,7 +48,7 @@ class Playlist extends React.Component {
             label=""
             dropAlign={{ bottom: 'bottom', left: 'left' }}
             dropContent={
-                <Box elevation="xlarge" alignSelf="center" pad="large" width="medium" background="dark-1" border="small">
+                <Box elevation="xlarge" alignSelf="center" pad="large" width="medium" background="dark-2" border="small">
                     <Tabs>
                         <Tab title="Playlist">
                             <Heading >New Playlist</Heading>
@@ -58,7 +58,7 @@ class Playlist extends React.Component {
                                 <Button type="submit" color="brand" label="Create" />
                             </Form>
                         </Tab>
-                        <Tab title="SubFeed">
+                        <Tab title="SubFeed" color="brand">
                             <Heading style={{ fontSize: 46 }}>New SubFeed</Heading>
                             <Form onSubmit={this.addPlaylist}>
                                 <FormField name="name" label="Name" required={true} />

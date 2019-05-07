@@ -62,13 +62,13 @@ class App extends Component {
           >
             <Box
               alignSelf="center"
-              border={{ color: 'brand', size: 'none' }}
+              border={{ color: 'accent-1', size: 'none' }}
               pad="medium"
               style={{ width: '300px', marginTop: '30vh' }}
               alignContent="center"
             >
               <Heading>Sign In</Heading>
-              <Button icon={<Google />} label="Sign in with Google" onClick={() => this.callGoogleSignIn()} />
+              <Button color="var(--brand)" icon={<Google />} label="Sign in with Google" onClick={() => this.callGoogleSignIn()} />
               {
                 // Standard firebase login button
                 //<StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()} />

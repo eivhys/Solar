@@ -157,7 +157,7 @@ class Playlist extends React.Component {
                     </Box>
                 </Box>
                 <ResponsiveContext.Consumer>
-                    {(size) => size !== "small" && playlist.description.length > 0 && (<Text color="accent-1">{playlist.description}</Text>)}
+                    {(size) => size !== "small" && playlist.description.length > 0 && (<Text color="accent-1" className="truncate">{playlist.description}</Text>)}
                 </ResponsiveContext.Consumer>
                 <Box border={{ color: 'dark-2', size: 'small', side: 'bottom' }} />
                 <Tracks playlist={playlist} playlistId={match.params.id} />

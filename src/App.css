@@ -59,7 +59,7 @@ body {
 .track {
     transition: all 150ms ease;
     border-top: #55555500 solid 1px;
-    height: 42px;
+    height: 50px;
     border-bottom: #555555 solid 1px;
 }
 

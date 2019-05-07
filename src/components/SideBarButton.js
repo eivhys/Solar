@@ -44,14 +44,23 @@ function SideBar({ playlists }) {
     return (
         <Menu
             icon={<MenuIcon />}
-            items={[...menuButtonItems, ...playlists].map(
+            style={{ padding: 0, float: 'left' }}
+            items={[...menuButtonItems.map(
+                (item) => (
+                    {
+                        label: item.name,
+                        onClick: () => history.push(`/${item.id}`),
+                    }
+                )
+            ),
+            ...playlists.map(
                 (item) => (
                     {
                         label: item.name,
                         onClick: () => history.push(`/playlists/${item.id}`),
                     }
                 )
-            )
+            )]
             }
         />
     )

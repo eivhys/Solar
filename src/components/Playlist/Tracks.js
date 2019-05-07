@@ -41,9 +41,8 @@ function Tracks({ playlist, stars = true, options = true, music, dispatch }) {
                             }}>
                             <Box fill="horizontal" direction="row" alignContent="between" overflow="hidden" >
                                 <Box fill="horizontal" direction="row">
-                                    {stars ?
-                                        <Icon style={{ padding: "15px 10px 0px 10px" }} type="star" theme={tracks[key].favourite ? "filled" : "outlined"} onClick={() => addFavourite(tracks[key], playlist)} />
-                                        : <Box style={{ width: 25 }} />}
+                                    {stars &&
+                                        <Icon style={{ padding: "15px 10px 0px 10px" }} type="star" theme={tracks[key].favourite ? "filled" : "outlined"} onClick={() => addFavourite(tracks[key], playlist)} />}
                                     <Text size="large" margin={{ top: '8px' }} className="truncate">{tracks[key].title}</Text>
                                 </Box>
                                 <Box direction="row" >

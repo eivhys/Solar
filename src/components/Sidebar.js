@@ -29,15 +29,15 @@ function SideBar({ playlists, dispatch, music }) {
 
 
     if (!isLoaded(playlists)) {
-        return <Box alignContent="center" margin="medium">
+        return <Box alignContent="center">
             {menuButtons}
-            <Update color="white" size="medium" className="spin" />
+            <Update style={{ margin: 10 }} alignmentBaseline="center" color="white" size="medium" className="spin" />
         </Box>
     }
     if (isEmpty(playlists)) {
         return <Box>
             {menuButtons}
-            <Box fill="vertical" marign="medium" >
+            <Box fill="vertical" margin="medium" >
                 <Text>No playlists found</Text>
                 <p>Create one with the <b>+</b> button</p>
                 <LinkDown style={{ bottom: 15, position: "absolute" }} color="accent-1" />

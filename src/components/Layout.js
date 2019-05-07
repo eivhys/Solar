@@ -9,6 +9,7 @@ import firebase from 'firebase'
 import Resizable from 're-resizable';
 import { connect } from "react-redux";
 import { compose } from 'redux'
+import MusicControlMobile from './MusicControlMobile';
 
 const capitalizeName = (s) => {
     const words = s.split(" ")
@@ -25,7 +26,7 @@ function Layout(props) {
                         <Grid fill rows={["auto", "flex", "auto"]}>
                             <Box>
                                 <Box tag="header" background="dark-1" pad="small" style={{ borderBottom: '1px solid var(--accent-1)', display: 'list-item' }}>
-                                    <img style={{ width: 20, float: 'left' }} src={logo} alt="" />
+                                    <img style={{ width: 20, padding: 0, float: 'left' }} src={logo} alt="" />
                                     <DropButton
                                         style={{ padding: 0, float: 'right' }}
                                         icon={<User />}
@@ -86,7 +87,7 @@ function Layout(props) {
                                 </Box>
                             </Box>
                             <Box tag="footer" pad="small" background="dark-1" style={{ borderTop: '1px solid #444' }}>
-                                <MusicControl />
+                                <MusicControlMobile />
                             </Box>
                         </Grid>
                     )

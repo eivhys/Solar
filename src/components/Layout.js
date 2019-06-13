@@ -101,7 +101,7 @@ function Layout(props) {
                                     </Box>
                                 </Box>
                                 <Box pad="small" background="dark-1" fill="horizontal" style={{ position: 'fixed', bottom: 0, borderTop: '1px solid #444' }} tag="footer">
-                                    <MusicControlMobile />
+                                    <MusicControl />
                                 </Box>
                             </Grid>
                         )
